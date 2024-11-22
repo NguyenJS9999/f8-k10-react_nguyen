@@ -1,8 +1,6 @@
-import { Fragment } from 'react';
 import './componentHeader.scss';
-import HomePage from '../../pages/homePage';
 
-function ComponentHeader(prop) {
+function ComponentHeader() {
 	const listCategory = [
 		{ id: 1, title: 'home', link: '/' },
 		{ id: 2, title: 'shop', link: '/shop' },
@@ -18,28 +16,6 @@ function ComponentHeader(prop) {
 
 	return (
 		<header>
-			{/* <div className="logo">
-				<a href="#">Logo</a>
-			</div>
-
-			<nav>
-				<ul>
-					<li>
-						<a href="">Home</a>
-					</li>
-					<li>
-						<a href="">Shop</a>
-					</li>
-					<li>
-						<a href="">Services</a>
-					</li>
-					<li>
-						<a href="">Contact</a>
-					</li>
-				</ul>
-			</nav> */}
-
-			<>
 				<div className="header-top">
 					<div className="header-top-inner"></div>
 				</div>
@@ -127,7 +103,6 @@ function ComponentHeader(prop) {
 						</div>
 					</div>
 				</div>
-			</>
 		</header>
 	);
 }
