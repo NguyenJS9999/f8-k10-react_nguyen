@@ -1,0 +1,66 @@
+
+
+//  Dùng ở scss => { color: $main-color; }
+//  Dùng ở html =>
+// import variables from './variables.module.scss'
+// {/* <h1 style={{ color: variables.primaryColor }}>Hello, Next.js!</h1> */}
+
+$main-color: #BE1E2D;
+$main-text-color: rgba(190, 30, 45, 1);
+$color-text-1: #22313F;
+$primary-color: rgba(255,223,225, 1);
+$button-border: rgba(128, 138, 148, 1);
+$button-color: #808A94;
+$main-backgound: rgba(242,242,242, 1);
+$pramary-border: rgba(191, 196, 201, 1);
+$white-color: #ffffff;
+$black-color: #000000;
+$border-color: rgb(191 196 201);
+$text-link: rgba(45,156,219, 1);
+$backgound-logo: rgba(191,29,45, 1);
+$border-input: #6b7280;
+$suggest-text: rgba(172, 172, 172, 0.5);
+$text-link-blue:rgba(41, 128, 176);
+$error-text:rgba(250, 82, 82, 1);
+$best-sale-backgound: #CC1D1D;
+$best-sale-button: #BE1E2D;
+$best-sale-button-backgound-active: rgb(173 180 187);
+$listed-price-color: #666666;
+$evaluate-background: #F2994A;
+$incentive-program-background: #F0F2F5;
+$line-border: #E5E7EB;
+$bg-Accent_Color_1: rgba(60, 174, 164, 1);
+$text-linkxanh: #2980B0;
+$bg-ddv: rgb(190, 30, 45, 1);
+$bg-bgtragop: rgb(6, 100, 249, 1);
+$bg-bordercam: rgb(255, 223, 225, 1);
+$QWE: #F3F4F6;
+
+:export {
+  mainColor: $main-color;
+  mainTextColor: $main-text-color;
+  primaryColor: $primary-color;
+  buttonBorder: $button-border;
+  buttonColor: $button-color;
+  mainBackgound: $main-backgound;
+  pramaryBorder: $pramary-border;
+  whiteColor: $white-color;
+  blackColor: $black-color;
+  borderColor: $border-color;
+  textLink: $text-link;
+  backgoundLogo: $backgound-logo;
+  borderInput: $border-input;
+  suggestText: $suggest-text;
+  textLinkBlue: $text-link-blue;
+  errorText: $error-text;
+  outstandingBackgound: $best-sale-backgound;
+  bestSaleButton: $best-sale-button;
+  bestSaleButtonBackgoundActive: $best-sale-button-backgound-active;
+  listedPriceColor: $listed-price-color;
+  evaluateBackground: $evaluate-background;
+  incentiveProgramBackground: $incentive-program-background;
+  lineBorder: $line-border;
+
+}
+
+

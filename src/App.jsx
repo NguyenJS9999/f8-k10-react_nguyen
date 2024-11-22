@@ -1,13 +1,16 @@
-import Courses from "./components/Courses";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+// React Day1: Btvn B28 20/11/2024
+import ComponentHeader from './components/componentHeader/ComponentHeader';
+import ProductListPage from './pages/productListPage';
+import ComponentFooter from './components/componentFooter/componentFooter';
 
-function App() {
+function App(prop) {
 	return (
 		<>
-			<Header />
-			<Courses />
-			<Footer />
+			<ComponentHeader />
+			<div className="content-pages container p-4 h-100">
+				<ProductListPage />
+			</div>
+			<ComponentFooter />
 		</>
 	);
 }
