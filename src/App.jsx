@@ -1,37 +1,64 @@
-import { useState } from "react";
-import styles from "./App.module.scss";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header";
+import { useEffect, useState } from 'react';
 
-function Welcome(props) {
-	// props.name = props.name + "aha";
+import Footer from './components/Footer/Footer';
+import Header from './components/Header';
+import { datas } from './datas/data.js';
 
-	// const [state, setState] = useState(initial value)
-	const [count, setCount] = useState(0);
+function ProductList(props) {
+	const [products, setProducts] = useState([]);
 
-	function handleClick() {
-		// count++;
-		console.log("hello");
-		setCount((prev) => prev + 1);
-		// setCount((prev) => prev + 1);
-		// setCount(count + 9);
-		// setCount(count + 3);
-		//! Không được cố gắng thay đổi trực tiếp giá trị của state.
+	function getInit() {
+		// const dataSlide = datas.slice(0, props.Perpage);
+		setProducts(datas);
 	}
+	useEffect(() => {
+		getInit();
+	}, []);
+
 	return (
 		<>
-			<h1>Xin chao {props.name}</h1>
-			<button onClick={handleClick}>Click me</button>
-			{count}
+		<div className="product-page">
+				<div className="product-page-title">Product list</div>
+				<div className="product-wraper">
+					<div className="product-list">
+						{products &&
+							products.map((item, index) => {
+								return (
+									<MoleculeProductItem
+										key={item.id ?? index }
+										item={item}
+									/>
+								);
+							})}
+					</div>
+				</div>
+			</div>
+
 		</>
 	);
 }
 
 function App() {
+	const [Perpage, setPerpage] = useState(10);
+	const [statusComponent, setStatusComponent] = useState(true);
+
+	function handleToggleComponent() {
+		setStatusComponent(!statusComponent);
+	}
+
+	function handleLoadMore() {
+
+	}
+
 	return (
 		<>
 			<Header />
-			<Welcome name="Hoang" />
+			{/* <Welcome name="Hoang" /> */}
+			<button onClick={handleToggleComponent}>Toggle</button>
+			{/* {statusComponent && <ProductList perpage={Perpage} />} */}
+			<ProductList />
+			<button onClick={handleLoadMore}>Load more</button>
+
 			<Footer />
 		</>
 	);
