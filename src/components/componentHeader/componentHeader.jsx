@@ -56,7 +56,7 @@ function ComponentHeader(prop) {
 										<span className="header-search-back d-lg-none d-xl-none">
 											<i className="fa-light fa-xmark" />
 										</span>
-										{/* <span class="header-search-icon"></span> */}
+										{/* <span className="header-search-icon"></span> */}
 										<input
 											autoComplete="off"
 											type="text"
@@ -84,7 +84,7 @@ function ComponentHeader(prop) {
 										<span className="cart-qty">1</span>
 									</span>
 									<div className="hri-content">
-										{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
+										{/* <span className="label"><span className="cart-qty">1</span> sản phẩm</span> */}
 									</div>
 								</a>
 							</div>
@@ -92,7 +92,7 @@ function ComponentHeader(prop) {
 								<a>
 									<div className="hri-content">
 										<i className="fa-regular fa-user" />
-										{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
+										{/* <span className="label"><span className="cart-qty">1</span> sản phẩm</span> */}
 									</div>
 								</a>
 							</div>
@@ -117,10 +117,10 @@ function ComponentHeader(prop) {
 											);
 										})}
 
-									{/* <li class="">
+									{/* <li className="">
 										<a href=" "><img src="" alt=""><span>Hệ thống Showroom</span></a>
 									</li> */}
-											{/* <li class="">
+											{/* <li className="">
 										<a href=" "><img src="" alt=""><span>Liên hệ</span></a>
 									</li> */}
 							</ul>

@@ -40,14 +40,14 @@
 }
 
 .shorten-text-two-line {
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
 }
 
 .product-infor-item {
-    height: 48px;
+    height: 24px;
 }
 
 .prd-infor-title {
@@ -127,9 +127,7 @@
 
 /* Small screen (≥576px và <768px) */
 @media (max-width: 768px) {
-    .shorten-text-two-line {
-        -webkit-line-clamp: 1;
-    }
+
 }
 
 /* Extra small screen (<576px) */
