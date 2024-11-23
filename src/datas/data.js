@@ -1,4 +1,4 @@
-export const dataProducts = [
+export const datas = [
 	{
 		final_price: 79000,
 		image: "https://canifa.com/img/500/750/resize/8/u/8us22a008-sa705-xl-1.jpg",
