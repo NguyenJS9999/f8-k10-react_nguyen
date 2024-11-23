@@ -1,4 +1,4 @@
-import './componentHeader.scss';
+import './ComponentHeader.scss';
 
 function ComponentHeader() {
 	const listCategory = [

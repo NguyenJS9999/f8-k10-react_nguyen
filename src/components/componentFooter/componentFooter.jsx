@@ -1,4 +1,4 @@
-import './componentFooter.scss';
+import './ComponentFooter.scss';
 
 const ComponentFooter = () => {
 	return (
