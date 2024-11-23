@@ -1,5 +1,6 @@
-import ComponentFooter from "./components/componentFooter/componentFooter";
-import ComponentHeader from "./components/componentHeader/componentHeader";
+import ComponentFooter from "./components/componentFooter/ComponentFooter";
+import ComponentHeader from "./components/componentHeader/ComponentHeader";
+import ComponentProductsList from "./components/componentProductsList/ComponentProductsList";
 
 /**
  *
@@ -12,7 +13,9 @@ function App() {
 	return (
 		<>
 			<ComponentHeader />
-			<h1>Hello</h1>
+			<div className="container p-4">
+				<ComponentProductsList />
+			</div>
 			<ComponentFooter />
 		</>
 	);
