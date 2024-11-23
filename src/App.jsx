@@ -32,7 +32,7 @@ function App() {
 	}, [darkMode]);
 
 	function handleToggleList() {
-		console.log('handleToggleList: ', showList);
+		// console.log('handleToggleList: ', showList);
 		setShowList(!showList);
 	}
 
