@@ -25,6 +25,18 @@
 	gap: 0.5rem;
 }
 
+#btn-see-more {
+	color: var(--black);
+	width: fit-content;
+	font-size: 20px;
+	height: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+}
+
 
 /* Large screen (≥992px và <1200px) */
 @media (max-width: 1200px) {

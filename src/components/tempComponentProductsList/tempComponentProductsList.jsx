@@ -1,12 +1,16 @@
-
-
-import './ComponentProductsList.scss';
-import { useState } from "react";
-import { datas } from "../../datas/data";
+import './tempComponentProductsList.scss';
+import { useState } from 'react';
+import { datas } from '../../datas/data';
 import ComponentProductItem from '../componentProductItem/tempComponentProductItem';
 
-function ComponentProductsList() {
-	const [arrProduct, setArrProduc] = useState(datas);
+function TempComponentProductsList() {
+	// const [ arrProduct, setArrProduc ] = useState(datas);
+
+	const [visibleProduct, setVisibleProduct] = useState(10);
+
+	const handleSeeMore = () => {
+		setVisibleProduct(visibleProduct + 10);
+	};
 
 	return (
 		<div>
@@ -14,24 +18,38 @@ function ComponentProductsList() {
 				<div className="product-page-title">Product list</div>
 				<div className="product-wraper">
 					<div className="product-list">
-						{arrProduct &&
-							arrProduct.map((item, index) => {
-								return (
-									<ComponentProductItem
-										key={item.id ?? index }
-										item={item}
-									/>
-								);
-							})}
+						{datas &&
+							datas
+								.slice(0, visibleProduct)
+								.map((item, index) => {
+									return (
+										<ComponentProductItem
+											key={item.id ?? index}
+											item={item}
+										/>
+									);
+								})}
 					</div>
+
+					<div className='d-flex justify-content-center'>
+						{visibleProduct < datas.length && (
+							<div
+								onClick={handleSeeMore}
+								id="btn-see-more"
+								className="btn btn-secondary mt-4"
+							>
+								See more
+							</div>
+						)}
+					</div>
+
 				</div>
 			</div>
 		</div>
 	);
 }
 
-export default ComponentProductsList;
-
+export default TempComponentProductsList;
 
 // import React from "react";
 // import { datas } from "../../datas/data";

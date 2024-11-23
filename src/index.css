@@ -31,7 +31,7 @@
 	--white: #fff;
 	--primary-red: #ad1023;
 	--secondary-red: #d70018;
-	--secondary-red: #AD1023;
+	--secondary-red: #ad1023;
 	--border-color: #ededed;
 	--background-homepage: #f7f8fa;
 	--color-attr: #333;
@@ -40,7 +40,7 @@
 }
 
 #root {
-	min-height: 100vh;
+	min-height: calc( 100vh + 1px );
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -54,4 +54,44 @@
 
 .content-pages > div {
 	width: 100%;
+}
+/* Dark mode */
+body.light {
+	background-color: white;
+	color: black;
+}
+
+body.dark {
+	background-color: #121212;
+	color: white;
+}
+
+/* header {
+	background-color: var(--header-bg, #282c34);
+} */
+
+button {
+	border: none;
+	background-color: var(--btn-bg, #61dafb);
+	color: var(--btn-color, black);
+	border-radius: 5px;
+	padding: 10px;
+}
+
+/* show hight */
+#show-hide-btn {
+	color: var(--black);
+	width: fit-content;
+	font-size: 20px;
+	height: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+}
+
+.wrap-frame {
+	/* border: 1px solid; */
+	flex: 1;
 }

@@ -1,9 +1,9 @@
-import './ComponentProductItem.scss';
+import './tempComponentProductItem.scss';
 
 import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
-function ComponentProductItem({ item }) {
+function tempComponentProductItem({ item }) {
 	function renderMoney(number) {
 		if (typeof parseInt(number) === 'number') {
 			return number.toLocaleString('vi', {
@@ -23,7 +23,6 @@ function ComponentProductItem({ item }) {
 	return (
 		<div className="product-item">
 			<a
-				href="/product-detail.html?id=${item?.id}"
 				className="product-img"
 				title={item?.meta_title}
 			>
@@ -69,7 +68,6 @@ function ComponentProductItem({ item }) {
 				<a
 					id="get-detail"
 					className="btn mt-2"
-					href="/product-detail.html?id=${item?.id}"
 					onClick={handleGetDetailProduct(item?.url_path)}
 				>
 					<span>Xem chi tiết</span>
@@ -79,8 +77,8 @@ function ComponentProductItem({ item }) {
 	);
 }
 
-// ComponentProductItem.propTypes = {
+// tempComponentProductItem.propTypes = {
 // 	item: PropTypes.object.isRequired
 // };
 
-export default ComponentProductItem;
+export default tempComponentProductItem;

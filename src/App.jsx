@@ -1,4 +1,3 @@
-
 /**
  *
  ** Bài 1: Tạo 1 nút bấm toogle product list để ẩn hiện danh sách sản phẩm.
@@ -6,18 +5,54 @@
  ** Bài 3: Trong component Header tạo nút bấm "handleChangeTheme" để chuyển đổi giữa DarkMode và LightMode
  */
 
-import ComponentFooter from "components/tempComponentFooter/ComponentFooter.jsx";
-import ComponentHeader from "components/tempComponentHeader/tempComponentHeader.jsx";
-import ComponentProductsList from "components/tempComponentProductsList/tempComponentProductsList.jsx";
+import { useEffect, useState } from 'react';
+import TempComponentFooter from './components/tempComponentFooter/tempComponentFooter';
+import TempComponentHeader from './components/tempComponentHeader/tempComponentHeader';
+import TempComponentProductsList from './components/tempComponentProductsList/tempComponentProductsList';
 
 function App() {
+	const [darkMode, setDarkMode] = useState(false);
+	const [showList, setShowList] = useState(true);
+
+	useEffect(() => {
+		localStorage.setItem('darkMode', darkMode);
+	}, [darkMode]);
+	useEffect(() => {
+		const savedMode = localStorage.getItem('darkMode') === 'true';
+		setDarkMode(savedMode);
+	}, []);
+	useEffect(() => {
+		if (darkMode) {
+			document.body.classList.add('dark');
+			document.body.classList.remove('light');
+		} else {
+			document.body.classList.add('light');
+			document.body.classList.remove('dark');
+		}
+	}, [darkMode]);
+
+	function handleToggleList() {
+		console.log('handleToggleList: ', showList);
+		setShowList(!showList);
+	}
+
 	return (
 		<>
-			<ComponentHeader />
-			<div className="container p-4">
-				<ComponentProductsList />
+			<TempComponentHeader
+				darkMode={darkMode}
+				toggleDarkMode={() => setDarkMode(!darkMode)}
+			/>
+			<div className="wrap-frame container p-4 h-100 ">
+				<div
+					onClick={handleToggleList}
+					className="btn btn-secondary"
+					id="show-hide-btn"
+				>
+					<span>Hiện danh sách sản phẩm</span>
+				</div>
+				{ showList && <TempComponentProductsList />}
 			</div>
-			<ComponentFooter />
+			<TempComponentFooter />
 		</>
 	);
 }

@@ -1,6 +1,6 @@
-import './ComponentFooter.scss';
+import './tempComponentFooter.scss';
 
-const ComponentFooter = () => {
+const TempComponentFooter = () => {
 	return (
 		<div id="component-footer">
 			<div className="container">
@@ -266,4 +266,4 @@ const ComponentFooter = () => {
 	);
 };
 
-export default ComponentFooter;
+export default TempComponentFooter;

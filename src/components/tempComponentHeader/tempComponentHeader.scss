@@ -199,3 +199,23 @@ svg {
     padding: 0 0.75rem;
     text-transform: capitalize;
 }
+
+/* Dark / Mode */
+.btn-dark-mode {
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    user-select: none;
+}
+.dark-mode {
+    background-color: var(--white);
+    color: var(--black);
+
+}
