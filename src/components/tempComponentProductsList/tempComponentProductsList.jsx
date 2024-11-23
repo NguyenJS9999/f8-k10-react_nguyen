@@ -3,7 +3,7 @@
 import './ComponentProductsList.scss';
 import { useState } from "react";
 import { datas } from "../../datas/data";
-import ComponentProductItem from '../componentProductItem/ComponentProductItem';
+import ComponentProductItem from '../componentProductItem/tempComponentProductItem';
 
 function ComponentProductsList() {
 	const [arrProduct, setArrProduc] = useState(datas);

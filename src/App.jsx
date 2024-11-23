@@ -1,6 +1,3 @@
-import ComponentFooter from "./components/componentFooter/ComponentFooter";
-import ComponentHeader from "./components/componentHeader/ComponentHeader";
-import ComponentProductsList from "./components/componentProductsList/ComponentProductsList";
 
 /**
  *
@@ -8,6 +5,10 @@ import ComponentProductsList from "./components/componentProductsList/ComponentP
  ** Bài 2: Tạo nút bấm "See more" ở cuối danh sách sản phẩm, mỗi lần ấn sẽ hiển thị thêm 10 sản phẩm.
  ** Bài 3: Trong component Header tạo nút bấm "handleChangeTheme" để chuyển đổi giữa DarkMode và LightMode
  */
+
+import ComponentFooter from "components/tempComponentFooter/ComponentFooter.jsx";
+import ComponentHeader from "components/tempComponentHeader/tempComponentHeader.jsx";
+import ComponentProductsList from "components/tempComponentProductsList/tempComponentProductsList.jsx";
 
 function App() {
 	return (
