@@ -90,7 +90,12 @@ button {
 	cursor: pointer;
 	user-select: none;
 }
-
+.show-list {
+	display: block;
+}
+.hire-list {
+	display: none;
+}
 .wrap-frame {
 	/* border: 1px solid; */
 	flex: 1;

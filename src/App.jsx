@@ -50,7 +50,9 @@ function App() {
 				>
 					<span>Hiện danh sách sản phẩm</span>
 				</div>
-				{ showList && <TempComponentProductsList />}
+				<div className={`${ showList ? 'show-list' : 'hire-list'}`}>
+					<TempComponentProductsList />
+				</div>
 			</div>
 			<TempComponentFooter />
 		</>
