@@ -11,7 +11,11 @@
     position: relative;
 }
 
-.product-item .product-img {
+.product-item  {
+    min-height: 428px;
+}
+
+.product-img {
     /* border: 1px solid red; */
     border-radius: inherit;
     user-select: none;
@@ -29,10 +33,6 @@
         object-fit: cover; // Đảm bảo ảnh được cắt để vừa khung mà không làm thay đổi tỷ lệ ảnh.
         object-position: center; // Đặt ảnh ở giữa khung (theo cả chiều ngang và dọc).
     }
-}
-
-.product-img {
-    min-height: 45%;
 }
 
 .product-item:hover .prd-name {
@@ -62,7 +62,9 @@
     font-size: 16px;
     color: var(--black);
 }
-
+.rating {
+    color: var(--rate-color);
+}
 #prd-name {
     margin-top: 0.5rem;
     font-size: 16px;

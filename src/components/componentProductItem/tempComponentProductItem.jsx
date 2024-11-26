@@ -4,13 +4,23 @@ import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 function tempComponentProductItem({ item }) {
+
 	function renderMoney(number) {
-		if (typeof parseInt(number) === 'number') {
-			return number.toLocaleString('vi', {
+		if (number && typeof parseInt(number) === 'number') {
+			return Number(number).toLocaleString('vi', {
 				style: 'currency',
 				currency: 'VND'
 			});
+		} else {
+			return number;
 		}
+	}
+
+	function renderRating(number) {
+		if ( number ) {
+			return number;
+		}
+
 	}
 
 	function handleGetDetailProduct(url_path) {
@@ -24,27 +34,27 @@ function tempComponentProductItem({ item }) {
 		<div className="product-item">
 			<a
 				className="product-img"
-				title={item?.meta_title}
+				title={item?.meta_title ?? item?.title }
 			>
-				<img src={item?.image} alt={item?.meta_title} />
+				<img src={item?.image  ?? item?.thumbnail} alt={item?.meta_title ?? item?.title} />
 			</a>
 			<div className="product-infor">
 				<div className="product-infor-item shorten-text-two-line"  title={item?.name}>
 					<span className="prd-infor-content" id="prd-name">
-						{item?.name}
+						{item?.name ?? item?.title}
 					</span>
 				</div>
 
 				<div className="product-infor-item shorten-text-two-line" title={renderMoney(item?.final_price)}>
 					<span className="prd-infor-title">Giá: </span>
 					<span className="prd-infor-content" id="prd-price">
-						{renderMoney(item?.final_price)}
+						{renderMoney(item?.final_price ?? item?.price)}
 					</span>
 				</div>
 				<span className="product-infor-item shorten-text-two-line" title={item?.short_description}>
 					<span className="prd-infor-title">Mô tả: </span>
 					<span className="prd-infor-content" id='prd-description'>
-						{item?.short_description}
+						{item?.short_description ?? item?.description}
 					</span>
 				</span>
 
@@ -56,14 +66,20 @@ function tempComponentProductItem({ item }) {
 					<span className="prd-infor-title">Stock: </span>
 					<span className="prd-infor-content" id='prd-stock'>{item?.stock}</span>
 				</span>
-				<span className="product-infor-item shorten-text-two-line" title={item?.materials}>
+				{item?.materials && <span className="product-infor-item shorten-text-two-line" title={item?.materials}>
 					<span className="prd-infor-title">Materials: </span>
 					<span className="prd-infor-content" id='prd-materials'>{item?.materials}</span>
-				</span>
-				<span className="product-infor-item shorten-text-two-line" title={item?.instruction}>
+				</span>}
+				{item?.instruction && <span className="product-infor-item shorten-text-two-line" title={item?.instruction}>
 					<span className="prd-infor-title">Instruction: </span>
 					<span className="prd-infor-content" id='prd-instruction'>{item?.instruction}</span>
-				</span>
+				</span>}
+				{item?.rating && <span className="product-infor-item shorten-text-two-line" title={item?.rating}>
+					<span className="prd-infor-title">Rating: </span>
+					<span className="prd-infor-content" id='prd-instruction'>
+						{ renderRating(item?.rating)} <i className="fa-solid fa-star rating"></i>
+					</span>
+				</span>}
 
 				<a
 					id="get-detail"

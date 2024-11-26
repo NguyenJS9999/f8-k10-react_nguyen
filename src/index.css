@@ -82,7 +82,8 @@ button {
 #show-hide-btn {
 	color: var(--black);
 	width: fit-content;
-	font-size: 20px;
+	font-size: 12px;
+	padding: 0.5rem 1rem !important;
 	height: fit-content;
 	display: flex;
 	justify-content: center;
@@ -91,7 +92,8 @@ button {
 	user-select: none;
 }
 .show-list {
-	display: block;
+	display: flex;
+	flex-direction: column;
 }
 .hire-list {
 	display: none;
@@ -99,4 +101,27 @@ button {
 .wrap-frame {
 	/* border: 1px solid; */
 	flex: 1;
+}
+/* Pagination */
+.pagination {
+	flex-wrap: wrap;
+}
+.per-page-change {
+	border-radius: 0.25rem;
+	border: 1px solid var(--color-old-price) !important;
+	height: 38px;
+	width: 100%;
+	max-width: 80px;
+	min-width: 60px;
+	margin-right: 0.5rem;
+	user-select: none;
+}
+.page-item {
+	user-select: none;
+}
+.page-item--active > a {
+	background-color: var(--secondary-red) !important;
+	border: 1px solid var(--secondary-red);
+	border-radius: 0.25rem;
+	color: var(--white) !important;
 }

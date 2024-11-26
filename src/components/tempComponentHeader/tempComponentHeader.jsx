@@ -1,18 +1,42 @@
 import './tempComponentHeader.scss';
+import { useCallback, useState } from 'react';
+import _ from "lodash";
 
-function TempComponentHeader({ darkMode, toggleDarkMode }) {
+function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch }) {
+
 	const listCategory = [
 		{ id: 1, title: 'home', link: '/' },
-		{ id: 2, title: 'shop', link: '/shop' },
+		{ id: 2, title: 'shop', link: '/shop'			 },
 		{ id: 3, title: 'services', link: '/services' },
 		{ id: 4, title: 'contact', link: '/contact' }
 	];
+	// const [searchValue, setValueSearch] = useState("");
+
+	function handleCleanInputSearch() {
+		// console.log("handleCleanInputSearch");
+	}
+	function handleInputSearch(event) {
+		// setValueSearch(event.target.value) // Tại component
+		debouncedSearch(event.target.value);
+	}
+
+	const debouncedSearch = useCallback(
+		_.debounce((searchTerm) => {
+			propOnInputSearch(searchTerm) // Truyền value search ra ngoài
+		}, 1000), // 500ms delay
+		[]
+	);
 
 	function handleGetPage(link) {
 		if (link) {
-			console.log('link: ', link);
+			// console.log('link: ', link);
 		}
 	}
+
+	function propOnPagination () {
+
+	}
+
 
 	// const checkbox = document.getElementById('btn-dark-mode');
 	// console.log('light dark', checkbox);
@@ -35,18 +59,23 @@ function TempComponentHeader({ darkMode, toggleDarkMode }) {
 
 						<div className="header-search-desktop">
 							<div className="form-search-control">
+
 								<div className="form-search">
-									<span className="header-search-back d-lg-none d-xl-none">
-										<i className="fa-light fa-xmark" />
+									<span className="header-search-back d-lg-none d-xl-none"
+										onClick={handleCleanInputSearch}
+									>
+										<i className="fa-solid fa-xmark"></i>
 									</span>
 									{/* <span className="header-search-icon"></span> */}
 									<input
+										id="search-all"
 										autoComplete="off"
 										type="text"
 										name="search-all"
 										className="form-control"
 										placeholder="Nhập từ khoá tìm kiếm"
-										id="search-all"
+										// value={searchValue}
+										onChange={handleInputSearch}
 									/>
 									<button
 										id="search-btn"

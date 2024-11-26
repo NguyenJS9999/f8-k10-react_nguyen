@@ -10,9 +10,11 @@ import TempComponentFooter from './components/tempComponentFooter/tempComponentF
 import TempComponentHeader from './components/tempComponentHeader/tempComponentHeader';
 import TempComponentProductsList from './components/tempComponentProductsList/tempComponentProductsList';
 
-function App() {
-	const [darkMode, setDarkMode] = useState(false);
-	const [showList, setShowList] = useState(true);
+function App( ) {
+	const [ darkMode, setDarkMode ] = useState(false);
+	const [ showList, setShowList ] = useState(true);
+	const [ isSearching, setIsSearching ] = useState(false);
+	const [ searchValue, setSearchValue ] = useState("");
 
 	useEffect(() => {
 		localStorage.setItem('darkMode', darkMode);
@@ -31,6 +33,17 @@ function App() {
 		}
 	}, [darkMode]);
 
+	const handleSearch = (value) => {
+		setSearchValue(value);
+		setIsSearching(true);
+	};
+
+	function handlePagination() {
+		setIsSearching(false)
+		setSearchValue("")
+		
+	}
+
 	function handleToggleList() {
 		// console.log('handleToggleList: ', showList);
 		setShowList(!showList);
@@ -41,6 +54,9 @@ function App() {
 			<TempComponentHeader
 				darkMode={darkMode}
 				toggleDarkMode={() => setDarkMode(!darkMode)}
+				propOnInputSearch={handleSearch}
+				propOnPagination={handlePagination}
+
 			/>
 			<div className="wrap-frame container p-4 h-100 ">
 				<div
@@ -51,7 +67,12 @@ function App() {
 					<span>Hiện danh sách sản phẩm</span>
 				</div>
 				<div className={`${ showList ? 'show-list' : 'hire-list'}`}>
-					<TempComponentProductsList />
+					<TempComponentProductsList
+						propsearchValue={searchValue}
+						propIsSearching={isSearching}
+						propOnPagination={handlePagination}
+
+					/>
 				</div>
 			</div>
 			<TempComponentFooter />
