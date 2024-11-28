@@ -170,7 +170,7 @@ svg {
 .megamenu>li>a,
 .megamenu>li>a>span {
     font-size: 14px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: var(--white);
     font-weight: 600;
 }

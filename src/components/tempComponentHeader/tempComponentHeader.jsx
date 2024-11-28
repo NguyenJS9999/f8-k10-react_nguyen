@@ -1,14 +1,15 @@
 import './tempComponentHeader.scss';
 import { useCallback, useState } from 'react';
 import _ from "lodash";
+import { Link, NavLink } from 'react-router-dom';
 
 function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch, propsearchValue }) {
 
 	const listCategory = [
-		{ id: 1, title: 'home', link: '/' },
+		{ id: 1, title: 'Admin', link: '/admin' },
 		{ id: 2, title: 'shop', link: '/shop'			 },
 		{ id: 3, title: 'services', link: '/services' },
-		{ id: 4, title: 'contact', link: '/contact' }
+		{ id: 4, title: 'Contact', link: '/contact' }
 	];
 	// const [searchValue, setValueSearch] = useState("");
 
@@ -54,7 +55,7 @@ function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch, prop
 				<div className="container">
 					<div className="header-main-inner">
 						<div className="header-logo">
-							<a href="./index.html">React</a>
+							<Link to="/">React</Link>
 						</div>
 
 						<div className="header-search-desktop">
@@ -129,11 +130,11 @@ function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch, prop
 										<li
 											key={item?.id}
 											className="item-category"
-											onClick={() =>
-												handleGetPage(item?.link)
-											}
+											// onClick={() =>
+											// 	handleGetPage(item?.link)
+											// }
 										>
-											{item?.title}
+											<NavLink to={item?.link} >{item?.title}</NavLink>
 										</li>
 									);
 								})}

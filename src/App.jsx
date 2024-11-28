@@ -1,20 +1,26 @@
-/**
- *
- ** Bài 1: Tạo 1 nút bấm toogle product list để ẩn hiện danh sách sản phẩm.
- ** Bài 2: Tạo nút bấm "See more" ở cuối danh sách sản phẩm, mỗi lần ấn sẽ hiển thị thêm 10 sản phẩm.
- ** Bài 3: Trong component Header tạo nút bấm "handleChangeTheme" để chuyển đổi giữa DarkMode và LightMode
- */
 
 import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import TempComponentFooter from './components/tempComponentFooter/tempComponentFooter';
 import TempComponentHeader from './components/tempComponentHeader/tempComponentHeader';
-import TempComponentProductsList from './components/tempComponentProductsList/tempComponentProductsList';
+// import TempComponentProductsList from './components/tempComponentProductsList/tempComponentProductsList';
+
+import HomePage from "./pages/HomePage";
+import ShopPage from "./pages/ShopPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ServicesPage from "./pages/ServicesPage";
+import ContactPage from "./pages/ContactPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import DashBoardPage from "./pages/admin/DashBoardPage";
+import ProductsList from "./pages/admin/ProductsList";
+import AddProducts from './pages/admin/AddProducts';
+import ProductsDetail from './pages/admin/ProductsDetail.';
 
 function App() {
-	const [ darkMode, setDarkMode ] = useState(false);
-	const [ showList, setShowList ] = useState(true);
-	const [ isSearching, setIsSearching ] = useState(false);
-	const [ searchValue, setSearchValue ] = useState("");
+	const [darkMode, setDarkMode] = useState(false);
+	// const [showList, setShowList] = useState(true);
+	const [isSearching, setIsSearching] = useState(false);
+	const [searchValue, setSearchValue] = useState('');
 
 	useEffect(() => {
 		localStorage.setItem('darkMode', darkMode);
@@ -33,24 +39,41 @@ function App() {
 		}
 	}, [darkMode]);
 
-	const handleSearch = (value) => {
+	const handleSearch = value => {
 		setSearchValue(value);
 		setIsSearching(true);
 	};
 
 	function handlePagination() {
-		setIsSearching(false)
-		setSearchValue("")
-
+		setIsSearching(false);
+		setSearchValue('');
 	}
 
-	function handleToggleList() {
-		// console.log('handleToggleList: ', showList);
-		setShowList(!showList);
-	}
+	// function handleToggleList() {
+	// 	// console.log('handleToggleList: ', showList);
+	// 	setShowList(!showList);
+	// }
 
 	return (
 		<>
+
+			{/* <div className="wrap-frame container p-4 h-100 ">
+				<div
+					onClick={handleToggleList}
+					className="btn btn-secondary"
+					id="show-hide-btn"
+				>
+					<span>Hiện danh sách sản phẩm</span>
+				</div>
+				<div className={`${  ? 'show-list' : 'hire-list'}`}>
+					<TempComponentProductsList
+						propsearchValue={searchValue}
+						propIsSearching={isSearching}
+						propOnPagination={handlePagination}
+					/>
+				</div>
+			</div> */}
+
 			<TempComponentHeader
 				darkMode={darkMode}
 				toggleDarkMode={() => setDarkMode(!darkMode)}
@@ -59,23 +82,35 @@ function App() {
 				propOnPagination={handlePagination}
 
 			/>
-			<div className="wrap-frame container p-4 h-100 ">
-				<div
-					onClick={handleToggleList}
-					className="btn btn-secondary"
-					id="show-hide-btn"
-				>
-					<span>Hiện danh sách sản phẩm</span>
-				</div>
-				<div className={`${ showList ? 'show-list' : 'hire-list'}`}>
-					<TempComponentProductsList
-						propsearchValue={searchValue}
-						propIsSearching={isSearching}
-						propOnPagination={handlePagination}
+				<div className="wrap-frame container p-4 h-100">
+					<Routes>
+						<Route path="/" element={<HomePage />} />
+						<Route path="/shop" element={
+							<ShopPage
 
-					/>
+								propsearchValue={searchValue}
+								propIsSearching={isSearching}
+								propOnPagination={handlePagination}
+							/>}
+						/>
+						{/* <Route path="/products/laptop" element={<LaptopPage />} />
+						<Route path="/products/desktop" element={<DesktopPage />} /> */}
+						<Route path="/products/:id" element={<ProductDetailPage />} />
+						<Route path="/services" element={<ServicesPage />} />
+						<Route path="/contact" element={<ContactPage />} />
+
+						{/* <Route path="/admin" element={<DashBoardPage />} /> */}
+						{/* <Route path="/admin/products" element={<ProductsList />} /> */}
+
+						<Route path="/admin" element={<DashBoardPage />}>
+							<Route path="/admin/products" element={<ProductsList />} />
+							<Route path="/admin/products/add" element={<AddProducts />} />
+							<Route path="/admin/products/detail" element={<ProductsDetail />} />
+						</Route>
+
+						<Route path="*" element={<NotFoundPage />} />
+					</Routes>
 				</div>
-			</div>
 			<TempComponentFooter />
 		</>
 	);
