@@ -1,7 +1,8 @@
 import './tempComponentProductsList.scss';
 import { useEffect, useState } from 'react';
 import { datas } from '../../datas/data';
-import MoleculeProductItem from 'components/molecules/componentProductItem/moleculeProductItem';
+import MoleculeProductItem from '@components/molecules/componentProductItem/MoleculeProductItem';
+
 
 function TempComponentProductsList({ propsearchValue, propIsSearching, propOnPagination }) {
 
