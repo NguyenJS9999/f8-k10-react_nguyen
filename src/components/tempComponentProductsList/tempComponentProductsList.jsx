@@ -1,7 +1,7 @@
 import './tempComponentProductsList.scss';
 import { useEffect, useState } from 'react';
 import { datas } from '../../datas/data';
-import ComponentProductItem from '../componentProductItem/tempComponentProductItem';
+import MoleculeProductItem from 'components/molecules/componentProductItem/moleculeProductItem';
 
 function TempComponentProductsList({ propsearchValue, propIsSearching, propOnPagination }) {
 
@@ -131,7 +131,7 @@ function TempComponentProductsList({ propsearchValue, propIsSearching, propOnPag
 								// .slice(0, 4)
 								.map((item, index) => {
 									return (
-										<ComponentProductItem
+										<MoleculeProductItem
 											key={item.id ?? index}
 											item={item}
 										/>
