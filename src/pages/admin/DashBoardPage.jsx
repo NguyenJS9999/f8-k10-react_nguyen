@@ -1,9 +1,15 @@
-import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import './DashBoardPage.scss';
 
 
 const DashBoardPage = () => {
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		navigate("/admin/products");
+	  }, [navigate]);
 
 	const listNavAdmin = [
 		{ id: 1, title: 'Dash Board', link: '/admin' },

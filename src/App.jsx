@@ -82,7 +82,7 @@ function App() {
 				propOnPagination={handlePagination}
 
 			/>
-				<div className="wrap-frame container p-4 h-100">
+				<div className="wrap-frame container h-100">
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route path="/shop" element={

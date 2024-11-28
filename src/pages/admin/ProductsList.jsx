@@ -9,7 +9,7 @@ const path = `products`;
 const ProductsList = () => {
 	const [ productList, setProductList ] = useState([]);
 	const [ modalConfirm, setModalConfirm ] = useState(false);
-	const [ productBeSelected, setProductBeSelected ] = useState([]);
+	const [ productBeSelected, setProductBeSelected ] = useState({});
 	const headerProductTable = [
 		{ id: 1, title: 'ID' },
 		{ id: 2, title: 'Title' },
@@ -44,22 +44,38 @@ const ProductsList = () => {
 		}
 	}
 
+	async function deleteProduct() {
+		const res = await fetch(`${baseUrl}/${path}/${productBeSelected.id}`, {
+			method: "DELETE",
+		});
+		if (!res.ok) throw new Error("Failed to delete product");
+		}
+
 	const handleOpenModalConfirm = (item) => {
 		console.log('handleOpenModalConfirm: ', item);
+		setProductBeSelected({});
 		if (item) {
-			setProductBeSelected()
 			setModalConfirm(true);
+			setProductBeSelected(item)
 		}
 	};
-	const handleToggleModalConfirm = () => {
+	const handleCloseModalConfirm = () => {
 		setModalConfirm(false);
-
 		// logic xoa
 	};
 
-	const handDeleteProduct = id => {
+	const handDeleteProduct = async() => {
+		await deleteProduct()
 		setModalConfirm(false);
+		const filterData =  productList.filter(product => product.id !== productBeSelected.id);
+		setProductList(filterData);
+		setProductBeSelected({});
+		// await initProductList(); // Web cá nhân nên không gọi lại
 		// logic xoa
+	};
+
+	function goToEditProduct () {
+		console.log('goToEditProduct: ');
 	};
 
 	function renderMoney(number) {
@@ -125,29 +141,34 @@ const ProductsList = () => {
 
 			</table>
 			{/*  */}
-			<div className={`${ modalConfirm ? "fade modal-confirm" : "modal"}`}  tabIndex="-1">
+			{/* <div className={`${ modalConfirm ? "fade modal-confirm" : "modal"}`}  tabIndex="-1"> */}
+			{ modalConfirm &&
+				<div className={`${modalConfirm && "modal-confirm  " } modal fade`}
+				onClick={handleCloseModalConfirm}
+				tabIndex="-1"
+			>
 				<div className="modal-dialog">
 					<div className="modal-content">
 					<div className="modal-header">
-						<h5 className="modal-title">Bạn có chắc chắn muốn xóa sản phẩm {}</h5>
+						<h5 className="modal-title">Bạn có chắc chắn muốn xóa sản phẩm {productBeSelected?.title}</h5>
 						<button type="button"
 							className="btn-close" data-bs-dismiss="modal" aria-label="Close"
-							onClick={handleToggleModalConfirm}
+							onClick={handleCloseModalConfirm}
 						>
 						</button>
 					</div>
-					<div className="modal-body">
+					{/* <div className="modal-body">
 						<p>Modal body text goes here.</p>
-					</div>
+					</div> */}
 					<div className="modal-footer">
 						<button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
-							onClick={handleToggleModalConfirm}
+							onClick={handleCloseModalConfirm}
 						>Close</button>
 						<button type="button" className="btn btn-primary" onClick={handDeleteProduct}>Ok</button>
 					</div>
 					</div>
 				</div>
-				</div>
+			</div>}
 			{/*  */}
 		</div>
 	);

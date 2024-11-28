@@ -9,7 +9,7 @@ const ShopPage = ({
 }) => {
 
 	return (
-		<div className="wrap-frame container p-4 h-100 ">
+		<div className="wrap-frame container h-100 ">
 			{/* <div
 				onClick={handleToggleList}
 				className="btn btn-secondary"

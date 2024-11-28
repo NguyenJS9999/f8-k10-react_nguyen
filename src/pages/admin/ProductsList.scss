@@ -17,7 +17,16 @@
 
 .fade {
     transition: opacity .15s linear;
+    opacity: 1 !important;
 }
+
+.modal-dialog {
+    transform: translateY(10%) !important;
+}
+
+// .fade:not(.show) {
+//     opacity: 1;
+// }
 
 .modal button {
     padding: 0.5rem 01rem;
