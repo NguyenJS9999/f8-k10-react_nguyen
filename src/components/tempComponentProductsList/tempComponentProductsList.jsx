@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { datas } from '../../datas/data';
 // import MoleculeProductItem from 'components/molecules/moleculeProductItem/MoleculeProductItem';
 // import MoleculeProductItem from '@components/molecules/moleculeProductItem/MoleculeProductItem';
-import MoleculeProductItem from '@components/molecules/moleculeProductItem/moleculeProductItem';
+import MoleculeProductItem from '@components/molecules/moleculeProductItem/MoleculeProductItem';
 
 
 
