@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './DashBoardPage.scss';
 
 
 const DashBoardPage = () => {
 
+	const location = useLocation();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		navigate("/admin/products");
-	  }, [navigate]);
+		if ( location.pathname ==='/admin') {
+			navigate("/admin/products");
+		}
+	}, [navigate]);
 
 	const listNavAdmin = [
 		{ id: 1, title: 'Dash Board', link: '/admin' },
