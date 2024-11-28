@@ -10,7 +10,7 @@ import TempComponentFooter from './components/tempComponentFooter/tempComponentF
 import TempComponentHeader from './components/tempComponentHeader/tempComponentHeader';
 import TempComponentProductsList from './components/tempComponentProductsList/tempComponentProductsList';
 
-function App( ) {
+function App() {
 	const [ darkMode, setDarkMode ] = useState(false);
 	const [ showList, setShowList ] = useState(true);
 	const [ isSearching, setIsSearching ] = useState(false);
@@ -41,7 +41,7 @@ function App( ) {
 	function handlePagination() {
 		setIsSearching(false)
 		setSearchValue("")
-		
+
 	}
 
 	function handleToggleList() {
@@ -54,6 +54,7 @@ function App( ) {
 			<TempComponentHeader
 				darkMode={darkMode}
 				toggleDarkMode={() => setDarkMode(!darkMode)}
+				propsearchValue={searchValue}
 				propOnInputSearch={handleSearch}
 				propOnPagination={handlePagination}
 

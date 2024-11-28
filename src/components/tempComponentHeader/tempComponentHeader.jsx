@@ -2,7 +2,7 @@ import './tempComponentHeader.scss';
 import { useCallback, useState } from 'react';
 import _ from "lodash";
 
-function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch }) {
+function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch, propsearchValue }) {
 
 	const listCategory = [
 		{ id: 1, title: 'home', link: '/' },
@@ -74,7 +74,7 @@ function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch }) {
 										name="search-all"
 										className="form-control"
 										placeholder="Nhập từ khoá tìm kiếm"
-										// value={searchValue}
+										// value={propsearchValue}
 										onChange={handleInputSearch}
 									/>
 									<button
