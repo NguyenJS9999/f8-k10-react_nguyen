@@ -8,6 +8,10 @@ const path = `products`;
 
 const ProductsList = () => {
 	const [ productList, setProductList ] = useState([]);
+	const [ productListToView, setProductListToView ] = useState([]);
+	const [ currentPageProduct, setCurrentPageProduct ] = useState(1);
+	const [ productLimit, setProductLimit ] = useState(10);
+	const [ cellPagination, setCellPagination ] = useState(['1']);
 	const [ modalConfirm, setModalConfirm ] = useState(false);
 	const [ productBeSelected, setProductBeSelected ] = useState({});
 	const headerProductTable = [
@@ -19,19 +23,40 @@ const ProductsList = () => {
 
 	useEffect(() => {
 		initProductList();
-	}, []);
+	}, [currentPageProduct, productLimit]);
 
 	async function initProductList() {
+		// GET /posts?_page=1&_per_page=25
 		try {
-			const endUrl = new URL(`${baseUrl}/${path}`);
-			const res = await fetch(endUrl);
+			// const endUrl = new URL(`${baseUrl}/${path}?_page=${currentPageProduct}&_limit=${productLimit}`);
+			const endUrlFull = new URL(`${baseUrl}/${path}`);
+
+			// console.log("endUrlFull: ", endUrlFull);
+			const res = await fetch(endUrlFull.toString());
 			// console.log('initProductList res: ', res);
 			if (res.status === 200) {
 				const data = await res.json();
 				// console.log('initProductList data: ', data);
+				// console.log('initProductList data.length: ', data.length);
+				const startIndex = (currentPageProduct - 1) * productLimit;
+				const dataPagination = [...data].slice(startIndex, startIndex + productLimit);
+
 				setProductList(data);
-				// return data;
-				// console.log('Message: ', res?.statusText);
+				setProductListToView(dataPagination);
+				// setTimeout(() => {
+				// 	renderPagination();
+				// }, 1000);
+				const result = [];
+
+				if ( data.length / productLimit > 1) {
+					for (let i = 1; i <= (data.length / productLimit); i++) {
+						result.push(i);
+					}
+				}
+				if ( data.length / productLimit <= 1) {
+					result.push(1);
+				}
+				setCellPagination(result)
 
 			} else {
 				console.log('Error Message: ', res?.statusText);
@@ -43,6 +68,37 @@ const ProductsList = () => {
 			return error;
 		}
 	}
+
+
+	function handleChangePagination(number) {
+		if ( number ) {
+			setCurrentPageProduct(number);
+		}
+	}
+
+	function handChangeLimit(event) {
+		if ( event ) {
+			setProductLimit(parseInt(Number(event.target.value)));
+		}
+	}
+
+	function handlePrevPage() {
+		// console.log('handlePrevPage');
+		if ( currentPageProduct > 1 ) {
+			setCurrentPageProduct((currentPageProduct => currentPageProduct - 1))
+		}
+	}
+	function handleNextPage() {
+		// if ( parseInt(currentPageProduct) < productList.length / productLimit ) {
+		// 	setCurrentPageProduct(currentPageProduct)
+		// }
+
+		if ( currentPageProduct < (productList.length / productLimit) ) {
+			setCurrentPageProduct((currentPageProduct => currentPageProduct + 1)) ;
+		}
+	}
+
+
 
 	async function deleteProduct() {
 		const res = await fetch(`${baseUrl}/${path}/${productBeSelected.id}`, {
@@ -71,7 +127,6 @@ const ProductsList = () => {
 		setProductList(filterData);
 		setProductBeSelected({});
 		// await initProductList(); // Web cá nhân nên không gọi lại
-		// logic xoa
 	};
 
 	function goToEditProduct () {
@@ -109,12 +164,12 @@ const ProductsList = () => {
 				</thead>
 
 				<tbody>
-				{productList &&
-				productList.map((item, index) => {
+				{productListToView &&
+				productListToView.map((item, index) => {
 					return (
 					<tr  key={item?.id ?? index}  className="" scope="col" >
 						<th scope="row">{item?.id}</th>
-						<td>{item?.id}</td>
+						<td>{item?.title}</td>
 						<td>{ item?.price && renderMoney(item?.price) }</td>
 
 						<td  className="col-2" colSpan="1" >
@@ -140,6 +195,52 @@ const ProductsList = () => {
 				</tbody>
 
 			</table>
+
+			<nav
+					aria-label="pagination-products"
+					className="d-flex justify-content-center pt-4"
+				>
+					<select
+						className="per-page-change mr-4"
+						id="per-page-change"
+						defaultValue={productLimit}
+						onChange={handChangeLimit}
+					>
+						<option defaultValue={1}  value={1} >Tất cả</option>
+						<option defaultValue={2}  value={2}>{2}</option>
+						<option defaultValue={10} value={10}>{10}</option>
+						<option defaultValue={20} value={20}>{20}</option>
+						<option defaultValue={30} value={30}>{30}</option>
+						<option defaultValue={50} value={50}>{50}</option>
+					</select>
+
+					<ul className="pagination d-flex gap-2">
+						<li className="page-item" onClick={handlePrevPage}>
+							<a className="page-link" href="#">
+								<i className="fa-solid fa-chevron-left"></i>
+							</a>
+						</li>
+						{cellPagination && cellPagination
+							.map((item, index) => {
+								return (
+									<li
+										className={`${currentPageProduct === Number(item) &&'page-item--active'} page-item`}
+										key={item.id ?? index}
+										onClick={() => handleChangePagination(item)}
+									>
+										<a className="page-link" href="#">{item}</a>
+									</li>
+								);
+							})
+						}
+						<li className="page-item" onClick={handleNextPage} >
+							<a className="page-link" href="#">
+								<i className="fa-solid fa-chevron-right"></i>
+							</a>
+						</li>
+					</ul>
+
+				</nav>
 			{/*  */}
 			{/* <div className={`${ modalConfirm ? "fade modal-confirm" : "modal"}`}  tabIndex="-1"> */}
 			{ modalConfirm &&

@@ -10,7 +10,6 @@
 
 // Modal
 .modal-confirm {
-    // border:  1px solid red;
     display: block;
     background-color: rgba(000, 000, 000, 0.5);
 }
@@ -34,5 +33,9 @@
     font-weight: 400;
     user-select: none;
     border: none;
+}
+
+#per-page-change option {
+    border:  1px solid red !important;
 }
 
