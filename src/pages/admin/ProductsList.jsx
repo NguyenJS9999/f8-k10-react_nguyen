@@ -1,9 +1,10 @@
 // import { getAllProduct } from '@api/products';
 import React, { useEffect, useState } from 'react';
 import './ProductsList.scss';
+import { Link } from 'react-router-dom';
 
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://json-server-be-nguyen-k10.onrender.com';
 const path = `products`;
 
 const ProductsList = () => {
@@ -145,9 +146,22 @@ const ProductsList = () => {
 		}
 	}
 
+
+
+
 	return (
 		<div>
 			<h1>Danh sách sản phẩm</h1>
+
+			<div className="product-actions w-100 d-flex">
+				<Link to={`/admin/products/add`} >
+					<button
+						type="button" className="btn btn-success px-3 py-1"
+					>
+						Add product
+					</button>
+				</Link>
+			</div>
 
 			<table className="admin-product-list table table-bordered">
 				<thead>

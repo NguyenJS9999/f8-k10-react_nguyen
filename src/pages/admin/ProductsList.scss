@@ -1,12 +1,21 @@
 
-.admin-product-list button {
-    padding: 0.5rem 01rem;
-    font-size: 14px;
-    font-weight: 400;
-    user-select: none;
-    border: none;
+.admin-product-list {
+    margin-top: 1rem;
+    button {
+        padding: 0.5rem 01rem;
+        font-size: 14px;
+        font-weight: 400;
+        user-select: none;
+        border: none;
+    }
 }
 
+.product-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
 // Modal
 .modal-confirm {
