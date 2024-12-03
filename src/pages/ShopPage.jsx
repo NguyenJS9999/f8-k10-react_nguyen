@@ -4,8 +4,7 @@ import TempComponentProductsList from "@components/tempComponentProductsList/tem
 const ShopPage = ({
 	propsearchValue,
 	propIsSearching,
-	propOnPagination={handlePagination}
-	,
+	propOnPagination,
 }) => {
 
 	return (

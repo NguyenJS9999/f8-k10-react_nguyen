@@ -1,5 +1,5 @@
 import './AddProducts.scss';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { create } from "../../axios";
 import { updateById } from "../../axios/index";
@@ -12,8 +12,19 @@ const AddProducts = () => {
 		title: "",
 		price: 0,
 		description: "",
+		category: "",
 	};
+
+
 	const [product, setProduct] = useState(initValue);
+
+	useEffect(() => {
+		(async () => {
+		const data = await updateById("/products", id, product);
+
+		})
+	}, []);
+
 
 	// Cập nhật state
 	const handleChange = (e) => {
@@ -25,27 +36,10 @@ const AddProducts = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		(async () => {
-			// try {
-			// 	const res = await fetch("http://localhost:3000/products", {
-			// 		method: "POST",
-			// 		headers: {
-			// 			"Content-Type": "application/json",
-			// 		},
-			// 		body: JSON.stringify(product),
-			// 	});
-			// 	const data = await res.json();
-			// 	console.log(data);
-			// 	// Thong bao them thanh cong.
-			// 	confirm("Them thanh cong, ban muon quay lai danh sach san pham khong?") && nav("/admin/products");
-			// 	// Cap nhat lai danh sach san pham neu nguoi dung quay lai danh sach san pham
-			// 	// Neu nguoi dung o lai AddProducts, sau khi submit thi phai reset form.
-			// } catch (error) {
-			// 	console.log(error);
-			// }
-
 			if (id) {
 				// logic update
 				const data = await updateById("/products", id, product);
+
 			} else {
 				// logic add
 				const data = await create("/products", product);
@@ -60,10 +54,8 @@ const AddProducts = () => {
 
       <div className="product-actions w-100 d-flex">
 				<Link to={`/admin/products`} >
-					<button
-						type="button" className="btn btn-success px-3 py-1"
-					>
-           Product list
+					<button type="button" className="btn btn-success px-3 py-1" >
+						Product list
 					</button>
 				</Link>
 			</div>
@@ -99,9 +91,9 @@ const AddProducts = () => {
 					/>
 				</div>
 
-        <div className="form-group">
+    		    <div className="form-group">
 					<label htmlFor="price" className="form-label">
-           Description
+         			  Description
 					</label>
 					<input
 						className="form-control"
@@ -113,6 +105,21 @@ const AddProducts = () => {
 						onChange={handleChange}
 					/>
 				</div>
+
+				<select
+					className="per-page-change mr-4"
+					name="category"
+					id="category"
+					defaultValue={product.category}
+					onChange={handleChange}
+				>
+					<option defaultValue={1}  value={1} >Tất cả</option>
+					<option defaultValue={2}  value={2}>{2}</option>
+					<option defaultValue={10} value={10}>{10}</option>
+					<option defaultValue={20} value={20}>{20}</option>
+					<option defaultValue={30} value={30}>{30}</option>
+					<option defaultValue={50} value={50}>{50}</option>
+				</select>
 
 				<div className="form-group mt-2">
 					<button className="btn btn btn-primary w-100" onClick={handleSubmit}>

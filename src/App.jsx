@@ -13,8 +13,8 @@ import ContactPage from "./pages/ContactPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import DashBoardPage from "./pages/admin/DashBoardPage";
 import ProductsList from "./pages/admin/ProductsList";
-import AddProducts from './pages/admin/AddProducts';
-import ProductsDetail from './pages/admin/ProductsDetail.';
+import OrganismFormLogin from '@components/organisms/organismFormLogin/OrganismFormLogin';
+import LayoutAdmin from './layouts/LayoutAdmin';
 
 function App() {
 	const [darkMode, setDarkMode] = useState(false);
@@ -49,31 +49,8 @@ function App() {
 		setSearchValue('');
 	}
 
-	// function handleToggleList() {
-	// 	// console.log('handleToggleList: ', showList);
-	// 	setShowList(!showList);
-	// }
-
 	return (
 		<>
-
-			{/* <div className="wrap-frame container p-4 h-100 ">
-				<div
-					onClick={handleToggleList}
-					className="btn btn-secondary"
-					id="show-hide-btn"
-				>
-					<span>Hiện danh sách sản phẩm</span>
-				</div>
-				<div className={`${  ? 'show-list' : 'hire-list'}`}>
-					<TempComponentProductsList
-						propsearchValue={searchValue}
-						propIsSearching={isSearching}
-						propOnPagination={handlePagination}
-					/>
-				</div>
-			</div> */}
-
 			<TempComponentHeader
 				darkMode={darkMode}
 				toggleDarkMode={() => setDarkMode(!darkMode)}
@@ -84,10 +61,13 @@ function App() {
 			/>
 				<div className="wrap-frame container h-100">
 					<Routes>
+						{/* Client layout */}
 						<Route path="/" element={<HomePage />} />
+
+						<Route path="/login" element={<OrganismFormLogin />} />
+
 						<Route path="/shop" element={
 							<ShopPage
-
 								propsearchValue={searchValue}
 								propIsSearching={isSearching}
 								propOnPagination={handlePagination}
@@ -99,13 +79,12 @@ function App() {
 						<Route path="/services" element={<ServicesPage />} />
 						<Route path="/contact" element={<ContactPage />} />
 
-						{/* <Route path="/admin" element={<DashBoardPage />} /> */}
-						{/* <Route path="/admin/products" element={<ProductsList />} /> */}
 
-						<Route path="/admin" element={<DashBoardPage />}>
+						<Route path="/admin" element={<LayoutAdmin />}>
+							<Route index element={<DashBoardPage />} />
 							<Route path="/admin/products" element={<ProductsList />} />
-							<Route path="/admin/products/add" element={<AddProducts />} />
-							<Route path="/admin/products/detail" element={<ProductsDetail />} />
+							<Route path="/admin/products/add" element={<ProductForm />} />
+							<Route path="/admin/products/edit" element={<ProductForm />} />
 						</Route>
 
 						<Route path="*" element={<NotFoundPage />} />

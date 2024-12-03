@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './ProductsList.scss';
 import { Link } from 'react-router-dom';
+import instance from "../../axios";
 
 
 const baseUrl = 'https://json-server-be-nguyen-k10.onrender.com';
@@ -70,6 +71,38 @@ const ProductsList = () => {
 		}
 	}
 
+	useEffect(() => {
+		(async () => {
+			const res = await instance.get(`/products`);
+			console.log("axios res: ", res);
+			if (res.status === 200) {
+				const { data } = res;
+
+				const startIndex = (currentPageProduct - 1) * productLimit;
+				const dataPagination = [...data].slice(startIndex, startIndex + productLimit);
+
+				setProductList(data);
+				setProductListToView(dataPagination);
+
+				const result = [];
+				if ( data.length / productLimit > 1) {
+					for (let i = 1; i <= (data.length / productLimit); i++) {
+						result.push(i);
+					}
+				}
+				if ( data.length / productLimit <= 1) {
+					result.push(1);
+				}
+				setCellPagination(result)
+
+			} else {
+				console.log('Error Message: ', res?.statusText);
+				return res?.statusText;
+			}
+
+		})();
+	}, [currentPageProduct, productLimit]);
+
 
 	function handleChangePagination(number) {
 		if ( number ) {
@@ -109,7 +142,7 @@ const ProductsList = () => {
 		}
 
 	const handleOpenModalConfirm = (item) => {
-		console.log('handleOpenModalConfirm: ', item);
+		// console.log('handleOpenModalConfirm: ', item);
 		setProductBeSelected({});
 		if (item) {
 			setModalConfirm(true);

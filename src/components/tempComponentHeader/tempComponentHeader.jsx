@@ -47,6 +47,7 @@ function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch, prop
 	// });
 
 	return (
+		<>
 		<header>
 			<div className="header-top">
 				<div className="header-top-inner"></div>
@@ -150,6 +151,9 @@ function TempComponentHeader({ darkMode, toggleDarkMode, propOnInputSearch, prop
 				</div>
 			</div>
 		</header>
+		{/* Modal */}
+		</>
+
 	);
 }
 

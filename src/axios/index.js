@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
 const instance = axios.create({
-	baseURL: "http://localhost:3000",
+	baseURL: 'http://localhost:3000',
 	headers: {
-		"Content-Type": "application/json",
-	},
+		'Content-Type': 'application/json'
+	}
 });
 
-export const getAll = async (path) => {
+export const getAllItem = async path => {
 	try {
 		const { data } = await instance.get(path);
 		return data;
@@ -16,7 +16,7 @@ export const getAll = async (path) => {
 	}
 };
 
-export const getById = async (path, id) => {
+export const getOneById = async (path, id) => {
 	try {
 		const { data } = await instance.get(`${path}/${id}`);
 		return data;
@@ -25,7 +25,7 @@ export const getById = async (path, id) => {
 	}
 };
 
-export const removeById = async (path, id) => {
+export const removeOneById = async (path, id) => {
 	try {
 		const res = await instance.delete(`${path}/${id}`);
 		return res;
@@ -34,7 +34,22 @@ export const removeById = async (path, id) => {
 	}
 };
 
-export const create = async (path, data) => {};
-export const updateById = async (path, id, data) => {};
+export const create = async (path, dataBody) => {
+	try {
+		const { data } = await instance.get(`${path}`, dataBody);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const updateById = async (path, id, dataBody) => {
+	try {
+		const { data } = await instance.patch(`${path}/${id}`, dataBody);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export default instance;

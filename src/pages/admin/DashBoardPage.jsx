@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './DashBoardPage.scss';
-
 
 const DashBoardPage = () => {
 
@@ -10,7 +9,7 @@ const DashBoardPage = () => {
 
 	useEffect(() => {
 		if ( location.pathname ==='/admin') {
-			navigate("/admin/products");
+			// navigate("/admin/products");
 		}
 	}, [navigate]);
 
@@ -46,7 +45,6 @@ const DashBoardPage = () => {
 				</ul>
 			</div>
 
-			<Outlet />
 		</div>
 	);
 };
