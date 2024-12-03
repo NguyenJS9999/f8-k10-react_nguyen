@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import TempComponentFooter from './components/tempComponentFooter/tempComponentFooter';
 import TempComponentHeader from './components/tempComponentHeader/tempComponentHeader';
-// import TempComponentProductsList from './components/tempComponentProductsList/tempComponentProductsList';
 
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
@@ -15,6 +14,10 @@ import DashBoardPage from "./pages/admin/DashBoardPage";
 import ProductsList from "./pages/admin/ProductsList";
 import OrganismFormLogin from '@components/organisms/organismFormLogin/OrganismFormLogin';
 import LayoutAdmin from './layouts/LayoutAdmin';
+import ProductForm from './pages/admin/ProductForm/ProductForm';
+import UserDashBoard from './pages/user/UserDashBoard';
+import RegisterForm from './pages/user/RegisterForm';
+import LoginForm from './pages/user/LoginForm';
 
 function App() {
 	const [darkMode, setDarkMode] = useState(false);
@@ -63,7 +66,6 @@ function App() {
 					<Routes>
 						{/* Client layout */}
 						<Route path="/" element={<HomePage />} />
-
 						<Route path="/login" element={<OrganismFormLogin />} />
 
 						<Route path="/shop" element={
@@ -73,8 +75,7 @@ function App() {
 								propOnPagination={handlePagination}
 							/>}
 						/>
-						{/* <Route path="/products/laptop" element={<LaptopPage />} />
-						<Route path="/products/desktop" element={<DesktopPage />} /> */}
+
 						<Route path="/products/:id" element={<ProductDetailPage />} />
 						<Route path="/services" element={<ServicesPage />} />
 						<Route path="/contact" element={<ContactPage />} />
@@ -84,7 +85,12 @@ function App() {
 							<Route index element={<DashBoardPage />} />
 							<Route path="/admin/products" element={<ProductsList />} />
 							<Route path="/admin/products/add" element={<ProductForm />} />
-							<Route path="/admin/products/edit" element={<ProductForm />} />
+							<Route path="/admin/products/update/:id" element={<ProductForm />} />
+						</Route>
+
+						<Route path="/user" element={<UserDashBoard />}>
+							<Route path="register" element={<RegisterForm />} />
+							<Route path="login" element={<LoginForm />} />
 						</Route>
 
 						<Route path="*" element={<NotFoundPage />} />

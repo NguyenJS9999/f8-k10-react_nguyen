@@ -1,14 +1,16 @@
 // import { getAllProduct } from '@api/products';
 import React, { useEffect, useState } from 'react';
 import './ProductsList.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import instance from "../../axios";
+import { removeOneById } from "../../axios/crud";
 
 
 const baseUrl = 'https://json-server-be-nguyen-k10.onrender.com';
 const path = `products`;
 
 const ProductsList = () => {
+	let navigate = useNavigate();
 	const [ productList, setProductList ] = useState([]);
 	const [ productListToView, setProductListToView ] = useState([]);
 	const [ currentPageProduct, setCurrentPageProduct ] = useState(1);
@@ -28,7 +30,8 @@ const ProductsList = () => {
 	}, [currentPageProduct, productLimit]);
 
 	async function initProductList() {
-		// GET /posts?_page=1&_per_page=25
+		console.log('initProductList');
+
 		try {
 			// const endUrl = new URL(`${baseUrl}/${path}?_page=${currentPageProduct}&_limit=${productLimit}`);
 			const endUrlFull = new URL(`${baseUrl}/${path}`);
@@ -41,7 +44,9 @@ const ProductsList = () => {
 				// console.log('initProductList data: ', data);
 				// console.log('initProductList data.length: ', data.length);
 				const startIndex = (currentPageProduct - 1) * productLimit;
-				const dataPagination = [...data].slice(startIndex, startIndex + productLimit);
+				// console.log('initProductList startIndex: ', startIndex);
+
+				const dataPagination = data.slice(startIndex, startIndex + productLimit);
 
 				setProductList(data);
 				setProductListToView(dataPagination);
@@ -78,11 +83,15 @@ const ProductsList = () => {
 			if (res.status === 200) {
 				const { data } = res;
 
+				// const startIndex = (currentPageProduct - 1) * productLimit;
+				// const dataPagination = [...data].slice(startIndex, startIndex + productLimit);
+
 				const startIndex = (currentPageProduct - 1) * productLimit;
-				const dataPagination = [...data].slice(startIndex, startIndex + productLimit);
+				const endIndex = startIndex + productLimit;
+				const visibleItems = data.slice(startIndex, endIndex);
 
 				setProductList(data);
-				setProductListToView(dataPagination);
+				setProductListToView(visibleItems);
 
 				const result = [];
 				if ( data.length / productLimit > 1) {
@@ -135,11 +144,11 @@ const ProductsList = () => {
 
 
 	async function deleteProduct() {
-		const res = await fetch(`${baseUrl}/${path}/${productBeSelected.id}`, {
-			method: "DELETE",
-		});
-		if (!res.ok) throw new Error("Failed to delete product");
-		}
+		// const res = await fetch(`${baseUrl}/${path}/${productBeSelected.id}`, {
+		// 	method: "DELETE",
+		// });
+
+	}
 
 	const handleOpenModalConfirm = (item) => {
 		// console.log('handleOpenModalConfirm: ', item);
@@ -155,16 +164,26 @@ const ProductsList = () => {
 	};
 
 	const handDeleteProduct = async() => {
-		await deleteProduct()
-		setModalConfirm(false);
-		const filterData =  productList.filter(product => product.id !== productBeSelected.id);
-		setProductList(filterData);
-		setProductBeSelected({});
-		// await initProductList(); // Web cá nhân nên không gọi lại
+		const res = await removeOneById("/products", productBeSelected.id);
+		console.log('handDeleteProduct', res);
+		if (res.status === 200) {
+			await deleteProduct()
+			setModalConfirm(false);
+			const filterData =  productList.filter(product => product.id !== productBeSelected.id);
+			setProductList(filterData);
+			setProductBeSelected({});
+			await initProductList(); // Web cá nhân nên không gọi lại
+		} else {
+			throw new Error("Failed to delete product");
+		}
+
 	};
 
-	function goToEditProduct () {
-		console.log('goToEditProduct: ');
+	function goToEditProduct (item) {
+		if (item) {
+			console.log('goToEditProduct item: ', item);
+			navigate(`/admin/products/update/${item.id}`);
+		}
 	};
 
 	function renderMoney(number) {
@@ -223,8 +242,11 @@ const ProductsList = () => {
 							<div className='w-100 d-flex gap-2'>
 								<button
 									type="button" className="btn btn-secondary"
-									onClick={() => goToEditProduct(item?.id)}
+									onClick={() => goToEditProduct(item)}
 								>
+									{/* <Link to={`/admin/products/update/${item.id}`}>
+
+									</Link> */}
 									Edit
 								</button>
 								<button
