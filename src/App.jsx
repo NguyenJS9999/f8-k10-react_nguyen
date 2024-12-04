@@ -1,104 +1,82 @@
-
-import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import TempComponentFooter from './components/tempComponentFooter/tempComponentFooter';
-import TempComponentHeader from './components/tempComponentHeader/tempComponentHeader';
-
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Footer from "./layout/footer/Footer";
+import Header from "./layout/header/Header";
+import Dashboard from "./pages/admin/Dashboard";
+import ProductForm from "./pages/admin/ProductForm";
+import ProductTable from "./pages/admin/ProductTable";
+import CategoryPage from "./pages/CategoryPage";
 import HomePage from "./pages/HomePage";
-import ShopPage from "./pages/ShopPage";
+import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProductDetail from "./pages/ProductDetail";
+import RegisterPage from "./pages/RegisterPage";
 import ServicesPage from "./pages/ServicesPage";
-import ContactPage from "./pages/ContactPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
-import DashBoardPage from "./pages/admin/DashBoardPage";
-import ProductsList from "./pages/admin/ProductsList";
-import OrganismFormLogin from '@components/organisms/organismFormLogin/OrganismFormLogin';
-import LayoutAdmin from './layouts/LayoutAdmin';
-import ProductForm from './pages/admin/ProductForm/ProductForm';
-import UserDashBoard from './pages/user/UserDashBoard';
-import RegisterForm from './pages/user/RegisterForm';
-import LoginForm from './pages/user/LoginForm';
+import { getAll, removeById } from "./services/crudServices";
+import LayoutAdmin from "./layout/LayoutAdmin";
+import ProtectedRoute from "./layout/ProtectedRoute";
+import SuperAdmin from "./pages/admin/SuperAdmin";
 
-function App() {
-	const [darkMode, setDarkMode] = useState(false);
-	// const [showList, setShowList] = useState(true);
-	const [isSearching, setIsSearching] = useState(false);
-	const [searchValue, setSearchValue] = useState('');
+const App = () => {
+	const [products, setProducts] = useState([]);
 
+	const location = useLocation();
+	// console.log("location: ", location);
 	useEffect(() => {
-		localStorage.setItem('darkMode', darkMode);
-	}, [darkMode]);
-	useEffect(() => {
-		const savedMode = localStorage.getItem('darkMode') === 'true';
-		setDarkMode(savedMode);
+		(async () => {
+			const data = await getAll("/products");
+			setProducts(data);
+		})();
 	}, []);
-	useEffect(() => {
-		if (darkMode) {
-			document.body.classList.add('dark');
-			document.body.classList.remove('light');
-		} else {
-			document.body.classList.add('light');
-			document.body.classList.remove('dark');
+
+	const handleRemoveProduct = async (id) => {
+		if (confirm("Are you sure?")) {
+			const res = await removeById("/products", id);
+			if (res.status === 200) {
+				const newProducts = products.filter((item) => item.id !== id);
+				setProducts(newProducts);
+			} else {
+				console.log("Error!");
+			}
 		}
-	}, [darkMode]);
-
-	const handleSearch = value => {
-		setSearchValue(value);
-		setIsSearching(true);
 	};
-
-	function handlePagination() {
-		setIsSearching(false);
-		setSearchValue('');
-	}
-
 	return (
-		<>
-			<TempComponentHeader
-				darkMode={darkMode}
-				toggleDarkMode={() => setDarkMode(!darkMode)}
-				propsearchValue={searchValue}
-				propOnInputSearch={handleSearch}
-				propOnPagination={handlePagination}
+		<div>
+			<Header />
+			<Routes>
+				<Route path="/" element={<HomePage products={products} />} />
+				<Route path="/services" element={<ServicesPage />} />
+				<Route path="/categories" element={<CategoryPage />} />
+				<Route path="/products/:id" element={<ProductDetail />} />
 
-			/>
-				<div className="wrap-frame container h-100">
-					<Routes>
-						{/* Client layout */}
-						<Route path="/" element={<HomePage />} />
-						<Route path="/login" element={<OrganismFormLogin />} />
+				<Route path="/admin" element={<LayoutAdmin />}>
+					<Route index element={<Dashboard />} />
+					<Route path="products" element={<ProductTable products={products} onRemove={handleRemoveProduct} />} />
+					<Route path="products/add" element={<ProductForm />} />
+					<Route path="products/update/:id" element={<ProductForm />} />
+				</Route>
 
-						<Route path="/shop" element={
-							<ShopPage
-								propsearchValue={searchValue}
-								propIsSearching={isSearching}
-								propOnPagination={handlePagination}
-							/>}
-						/>
+				{/* superAdmin */}
+				{/* <Route path="/super-admin" element={<ProtectedRoute />}>
+					<Route index element={<SuperAdmin />} />
+				</Route> */}
 
-						<Route path="/products/:id" element={<ProductDetailPage />} />
-						<Route path="/services" element={<ServicesPage />} />
-						<Route path="/contact" element={<ContactPage />} />
+				<Route
+					path="/super-admin"
+					element={
+						<ProtectedRoute role="superAdmin">
+							<SuperAdmin />
+						</ProtectedRoute>
+					}
+				/>
 
-
-						<Route path="/admin" element={<LayoutAdmin />}>
-							<Route index element={<DashBoardPage />} />
-							<Route path="/admin/products" element={<ProductsList />} />
-							<Route path="/admin/products/add" element={<ProductForm />} />
-							<Route path="/admin/products/update/:id" element={<ProductForm />} />
-						</Route>
-
-						<Route path="/user" element={<UserDashBoard />}>
-							<Route path="register" element={<RegisterForm />} />
-							<Route path="login" element={<LoginForm />} />
-						</Route>
-
-						<Route path="*" element={<NotFoundPage />} />
-					</Routes>
-				</div>
-			<TempComponentFooter />
-		</>
+				<Route path="/register" element={<RegisterPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="*" element={<NotFoundPage />} />
+			</Routes>
+			<Footer />
+		</div>
 	);
-}
+};
 
 export default App;
