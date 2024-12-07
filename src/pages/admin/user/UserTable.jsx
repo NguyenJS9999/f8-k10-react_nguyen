@@ -6,24 +6,14 @@ import { UserContext } from "../../../context/UserContext";
 const UserTable = () => {
 
 	const { userState, dispatchUser } = useContext(UserContext);
-
 	const [ todos, setTodos] = useState([]);
-
-	const userIdLogin = 3;
 
 	useEffect(() => {
 		(async () => {
 			const data = await getAll('/users');
-			// Có id user thì mới lọc ra show tạm...
-			if (userIdLogin) {
-				const dataWithUser = data.filter( item => item.userId == userIdLogin )
-				// console.log('dataWithUser', dataWithUser);
-				setTodos(dataWithUser);
-				dispatchUser({ type: "SET_USER", payload: dataWithUser });
-			} else {
-				setTodos(data);
-				dispatchUser({ type: "SET_USER", payload: data });
-			}
+			console.log('UserTable data', data);
+			setTodos(data);
+			dispatchUser({ type: "SET_USER", payload: data });
 
 
 		})();
@@ -64,21 +54,26 @@ const UserTable = () => {
 					<thead>
 						<tr className="text-center">
 							<th>ID</th>
-							<th>Title</th>
-							<th>Description</th>
-							<th>Status</th>
-							<th>Priority</th>
+							<th>Old</th>
+							<th>Address</th>
+							<th>Email</th>
+							<th>Role</th>
+							<th>ConfirmPassword</th>
+
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						{todos && todos.map((item, index) => (
 							<tr key={item.id ?? index}>
-								<td>{item?.id}</td>
-								<td>{item?.title}-userId: {item?.userId}</td>
-								<td>{item?.description}</td>
-								<td>{item?.status ? 'Done' : 'Doing'}</td>
-								<td>{item?.priority}</td>
+								<td>{item?.name}</td>
+								<td>{item?.old}</td>
+								<td>{item?.address}</td>
+								<td>{item?.email}</td>
+								<td>{item?.role}</td>
+								<td>{item?.confirmPassword}</td>
+
+								<td>{item?.role ?? 'Client'}</td>
 								<td>
 									<button className="btn btn-danger" onClick={() => handleRemoveUser(item?.id)}>
 										Remove

@@ -2,28 +2,57 @@ import './OrganismHeader.scss';
 import React, { useEffect, useState } from 'react';
 import { Link, data, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { getLocalStorage } from '../../../util/localStorage';
+import { removeFromLocalStorage } from '../../../util/localStorage';
 
 const OrganismHeader = () => {
 	const nav = useNavigate();
 
-	const [userInforState, setUserInforState] = useState({});
+	const [userInforState, setUserInforState] = useState(null);
 
-	// const accessTokenLocal = getLocalStorage('accessToken');
-	const dataUserLocal = getLocalStorage('user');
-	console.log('dataUserLocal: ', dataUserLocal);
+	const accessTokenLocal = localStorage.getItem(`accessToken`);
+	const dataUserLocal = JSON.parse(localStorage.getItem('user'));
+	const roleLocal = localStorage.getItem('role');
+	console.log('OrganismHeader', dataUserLocal, typeof dataUserLocal);
 
-// 	useEffect(() => {
-// 		if ( accessTokenLocal && dataUserLocal ) {
-// 			setUserInforState(dataUserLocal);
-// 		} else {
-// 			setUserInforState(null);
-// 		}
-// ;
-// 	}, []);
+	useEffect(() => {
+		checkLogin();
+	}, []);
+
+	useEffect(() => {
+		console.log("userInforState: ", userInforState, typeof userInforState);
+	}, [userInforState]);
+
 
 	function handleLogin() {
+		console.log('handleLogin');
 		nav('/login');
+	}
+
+	function checkLogin() {
+		console.log('checkLogin')
+		if ( !accessTokenLocal && !dataUserLocal ) {
+			console.log('!accessTokenLocal && !dataUserLocal !dataUser: ', dataUserLocal);
+			setUserInforState(null	);
+			nav("/login");
+		} else  {
+			// Hiện thông tin ở head
+			if ( accessTokenLocal && dataUserLocal ) {
+				console.log("accessTokenLocal && dataUserLocal: ");
+				setUserInforState(dataUserLocal);
+			} else {
+				setUserInforState(null);
+			}
+			// Dựa vào Role để điều hướng
+			if ( roleLocal === "admin") {nav("/admin");}
+			if ( roleLocal === "superAdmin") {nav("/super-admin");}
+			if ( !roleLocal ) {nav("/");}
+		}
+	}
+
+	function handleLogout() {
+		removeFromLocalStorage("accessToken");
+		removeFromLocalStorage("user");
+		checkLogin();
 	}
 
 	return (
@@ -75,13 +104,14 @@ const OrganismHeader = () => {
 							</a>
 						</div>
 
-
 						{ userInforState ?
-							<div
-								className="header-right-item"
-								id="auth-item"
-							>
-								{userInforState?.name}
+							<div className="">
+								<div className=" " id="auth-infor">
+									{ userInforState?.name ?? 'Name'}
+								</div>
+								<button className='btn btn-secondary' onClick={handleLogout}>
+									Logout
+								</button>
 							</div>
 						:
 						<div
@@ -114,6 +144,12 @@ const OrganismHeader = () => {
 							</li>
 							<li className="item-category">
 								<NavLink to="/services">Services</NavLink>
+							</li>
+							<li className="item-category">
+								<NavLink to="/admin/users">Users</NavLink>
+							</li>
+							<li className="item-category">
+								<NavLink to="/admin/todos">Todos</NavLink>
 							</li>
 						</ul>
 					</div>

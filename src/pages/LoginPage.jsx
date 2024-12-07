@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "../schemas/authSchemas";
 import { auth } from "../services/authServices";
-import { getLocalStorage, handleLocalStorage } from "../util/localStorage";
 
 const LoginPage = () => {
 	const nav = useNavigate();
@@ -17,10 +16,10 @@ const LoginPage = () => {
 		resolver: zodResolver(loginSchema),
 	});
 
-	const accessTokenLocal = getLocalStorage('accessToken');
-	const dataUserLocal = getLocalStorage('user');
-
-	console.log('handleLogin dataBody: ', dataBody);
+	const accessTokenLocal = localStorage.getItem('accessToken');
+	const dataUserLocal = JSON.parse(localStorage.getItem('user'));
+	const roleLocal = localStorage.getItem('role');
+	// console.log('LoginPage', dataUserLocal, typeof dataUserLocal);
 
 	useEffect(() => {
 		checkLogin();
@@ -30,32 +29,22 @@ const LoginPage = () => {
 		// Nếu ko lấy được thông tin user ở local và token
 		if ( !accessTokenLocal && !dataUserLocal ) {
 			console.log('!accessTokenLocal && !dataUserLocal !dataUser: ', dataUserLocal);
-			nav("/register")
+			nav("/login")
 		} else  {
-			if ( dataUserLocal.role === "admin") {nav("/admin");}
-			if ( dataUserLocal.role === "superAdmin") {nav("/super-admin");}
-			if ( !dataUserLocal.role ) {nav("/");}
+			if ( roleLocal === "admin") {nav("/admin");}
+			if ( roleLocal === "superAdmin") {nav("/super-admin");}
+			if ( !roleLocal ) {nav("/");}
 		}
 	}
 	const handleLogin = async (dataBody) => {
-
-		// if ( !dataUser ) {
-		// 	console.log('handleLogin !dataUser');
-		// 	nav("/login")
-		// } if ( dataUser ) {
-		// 	if ( dataUser.role === "admin") {nav("/admin");}
-		// 	if ( dataUser.role === "admin") {nav("/superAdmin");}
-		// 	if ( !dataUser.role ) {nav("/home");}
-		// }
-
 		const { accessToken, user } = await auth("/login", dataBody);
 		user && confirm("Login successfully, redirect Home?") && nav("/");
-		// localStorage.setItem("accessToken", accessToken);
-		// localStorage.setItem("user", JSON.stringify(user));
-		handleLocalStorage("accessToken", accessToken);
-		handleLocalStorage("user", JSON.stringify(user));
-		handleLocalStorage("role", user?.role || "client");
-		// localStorage.setItem("role", user?.role || "client");
+		localStorage.setItem("accessToken", accessToken);
+		localStorage.setItem("user", JSON.stringify(user));
+		localStorage.setItem("role", user?.role || "client");
+		// handleLocalStorage("accessToken", accessToken);
+		// handleLocalStorage("user", JSON.stringify(user));
+		// handleLocalStorage("role", user?.role || "client");
 	};
 	return (
 		<>

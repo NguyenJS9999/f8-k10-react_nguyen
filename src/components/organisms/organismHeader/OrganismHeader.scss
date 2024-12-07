@@ -239,6 +239,9 @@ svg {
 .item-category {
 	text-transform: capitalize;
 }
+#auth-infor {
+	color: var(--white)
+}
 @media (max-width: 1023px) {
 	.hri-icon {
 		background-color: initial;
