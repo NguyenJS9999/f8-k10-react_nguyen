@@ -28,6 +28,7 @@ import TodoProvider from './context/TodoContext';
 const App = () => {
 	return (
 		<>
+		<div className='app-component'>
 			<ProductProvider>
 			<TodoProvider>
 			<UserProvider>
@@ -79,6 +80,7 @@ const App = () => {
 			</UserProvider>
 			</TodoProvider>
 			</ProductProvider>
+			</div>
 		</>
 	);
 };

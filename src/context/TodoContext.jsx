@@ -5,9 +5,11 @@ import { todoReducer, initialSttate } from "../reducers/todoReducer.js";
 export const TodoContext = createContext();
 
 const TodoProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(todoReducer, initialSttate);
+	const [ todoState, dispatchTodo] = useReducer(todoReducer, initialSttate);
+	// console.log('Gọi File context todoState: ', todoState);
+	// console.log('Gọi File context dispatchTodo: ', dispatchTodo);
 
-	return <TodoContext.Provider value={{ state, dispatch }}>{children}</TodoContext.Provider>;
+	return <TodoContext.Provider value={{ todoState, dispatchTodo }}>{children}</TodoContext.Provider>;
 };
 
 export default TodoProvider;

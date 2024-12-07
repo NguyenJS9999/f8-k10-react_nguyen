@@ -1,11 +1,33 @@
 import './OrganismHeader.scss';
-import React from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import { NavLink,  } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, data, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { getLocalStorage } from '../../../util/localStorage';
 
 const OrganismHeader = () => {
+	const nav = useNavigate();
+
+	const [userInforState, setUserInforState] = useState({});
+
+	// const accessTokenLocal = getLocalStorage('accessToken');
+	const dataUserLocal = getLocalStorage('user');
+	console.log('dataUserLocal: ', dataUserLocal);
+
+// 	useEffect(() => {
+// 		if ( accessTokenLocal && dataUserLocal ) {
+// 			setUserInforState(dataUserLocal);
+// 		} else {
+// 			setUserInforState(null);
+// 		}
+// ;
+// 	}, []);
+
+	function handleLogin() {
+		nav('/login');
+	}
+
 	return (
-		<div className="header-component w-100">
+		<>
 			<div className="header-top">
 				<div className="header-top-inner"></div>
 			</div>
@@ -13,14 +35,14 @@ const OrganismHeader = () => {
 				<div className="container">
 					<div className="header-main-inner">
 						<div className="header-logo">
-							<a href="./index.html">Todo</a>
+							<Link to="/">Todo</Link>
 						</div>
 						<div className="header-search-desktop">
 							<div className="form-search-control">
 								<div className="form-search">
-									{/* <span className="header-search-back d-lg-none d-xl-none">
+									<span className="header-search-back d-lg-none d-xl-none">
 										<i className="fa-light fa-xmark" />
-									</span> */}
+									</span>
 									{/* <span class="header-search-icon"></span> */}
 									<input
 										autoComplete="off"
@@ -42,7 +64,7 @@ const OrganismHeader = () => {
 						</div>
 						{/* https://toshiko.vn/gio-hang */}
 						<div className="header-right-item" id="cart-item">
-							<Link to="./cart">
+							<a href="./src/pages/cart/cart.html">
 								<span className="hri-icon">
 									<i className="fa-solid fa-cart-arrow-down" />
 									<span className="cart-qty">1</span>
@@ -50,16 +72,33 @@ const OrganismHeader = () => {
 								<div className="hri-content">
 									{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
 								</div>
-							</Link>
+							</a>
 						</div>
-						<div className="header-right-item" id="auth-item">
-							<Link to="./login">
+
+
+						{ userInforState ?
+							<div
+								className="header-right-item"
+								id="auth-item"
+							>
+								{userInforState?.name}
+							</div>
+						:
+						<div
+							className="header-right-item"
+							id="auth-item"
+							onClick={handleLogin}
+						>
+							<a>
 								<div className="hri-content">
 									<i className="fa-regular fa-user" />
-									{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
 								</div>
-							</Link>
+							</a>
 						</div>
+						}
+
+
+
 					</div>
 				</div>
 			</div>
@@ -67,21 +106,20 @@ const OrganismHeader = () => {
 				<div className="container">
 					<div className="header-nav">
 						<ul className="megamenu">
-							{/* megamenu-active */}
 							<li className="item-category">
-								<NavLink to="/">home</NavLink>
+								<NavLink to="/">Home</NavLink>
 							</li>
 							<li className="item-category">
-								<NavLink to="/categories">categories</NavLink>
+								<NavLink to="/categories">Category</NavLink>
 							</li>
 							<li className="item-category">
-								<NavLink to="/services">services</NavLink>
+								<NavLink to="/services">Services</NavLink>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

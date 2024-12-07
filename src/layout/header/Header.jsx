@@ -1,8 +1,21 @@
 // import from 'react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getLocalStorage } from '../../util/localStorage';
+
+
 
 const Header = () => {
+	console.log("Coponent Header");
+
+	const [ userInforState, setUserInforState ] = useState();
+
+	useEffect( () =>  {
+		const data = getLocalStorage("user")
+		console.log("Header data local: ", data);
+		// setUserInforState();
+	}, []);
+
 	return (
 		<>
 			<div className="header-top">
@@ -12,7 +25,7 @@ const Header = () => {
 				<div className="container">
 					<div className="header-main-inner">
 						<div className="header-logo">
-							<a href="./index.html">Massage</a>
+							<a href="./index.html">Todo</a>
 						</div>
 						<div className="header-search-desktop">
 							<div className="form-search-control">
@@ -58,6 +71,8 @@ const Header = () => {
 									{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
 								</div>
 							</a>
+
+							<span>{ userInforState?.name }</span>
 						</div>
 					</div>
 				</div>

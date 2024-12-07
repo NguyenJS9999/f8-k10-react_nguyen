@@ -3,6 +3,9 @@ export const initialSttate = {
 };
 
 export const todoReducer = (state, action) => {
+	// console.log('gọi Reducer ở Reducer state: ', state);
+	console.log('gọi Reducer ở Reducer action: ', action);
+
 	switch (action.type) {
 		case "SET_TODOS":
 			return {

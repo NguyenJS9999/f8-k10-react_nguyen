@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AppContext } from "../../../context/AppContext";
 import { getAll, removeById } from "../../../services/crudServices";
+import { UserContext } from "../../../context/UserContext";
 
 const UserTable = () => {
 
-	const { appState, dispatch } = useContext(AppContext);
+	const { userState, dispatchUser } = useContext(UserContext);
 
 	const [ todos, setTodos] = useState([]);
 
@@ -17,27 +17,27 @@ const UserTable = () => {
 			// Có id user thì mới lọc ra show tạm...
 			if (userIdLogin) {
 				const dataWithUser = data.filter( item => item.userId == userIdLogin )
-				console.log('dataWithUser', dataWithUser);
+				// console.log('dataWithUser', dataWithUser);
 				setTodos(dataWithUser);
-				dispatch({ type: "SET_USER", payload: dataWithUser });
+				dispatchUser({ type: "SET_USER", payload: dataWithUser });
 			} else {
 				setTodos(data);
-				dispatch({ type: "SET_USER", payload: data });
+				dispatchUser({ type: "SET_USER", payload: data });
 			}
 
 
 		})();
 
-		console.log('UserTable appState: ', appState);
+		// console.log('UserTable appState: ', appState);
 	}, []);
 
 
-	useEffect(() => {
-		(async () => {
-			const data = await getAll(`/users?userId=${userIdLogin}`);
-			console.log('data ?userId: ', data);
-		})();
-	}, []);
+	// useEffect(() => {
+	// 	(async () => {
+	// 		const data = await getAll(`/users?userId=${userIdLogin}`);
+	// 		console.log('data ?userId: ', data);
+	// 	})();
+	// }, []);
 
 
 	const handleRemoveUser = async id => {

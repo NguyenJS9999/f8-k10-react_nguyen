@@ -1,41 +1,52 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { TodoContext } from "../../../context/TodoContext";
 import { getAll, removeById } from "../../../services/crudServices";
+import { TodoContext } from "../../../context/TodoContext";
+import { UserContext } from "../../../context/UserContext";
 
 const TodoTable = () => {
 
-	const { state, dispatch } = useContext(TodoContext);
+	const { todoState, dispatchTodo } = useContext(TodoContext);
+	const { userState } = useContext(UserContext);
 	const [ todos, setTodos] = useState([]);
 
-	const userIdLogin = 3;
+
+
 
 	useEffect(() => {
+		console.log('todos userState', userState);
+
 		(async () => {
-			const data = await getAll('/todos');
 			// Có id user thì mới lọc ra show tạm...
+			const userIdLogin = 3;
 			if (userIdLogin) {
-				const dataWithUser = data.filter( item => item.userId == userIdLogin )
-				console.log('dataWithUser', dataWithUser);
+				const dataWithUser = await getAll(`/todos?userId=${userIdLogin}`);
+				// const dataWithUser = data.filter( item => item.userId == userIdLogin )
 				setTodos(dataWithUser);
-				dispatch({ type: "INIT_TODO", payload: dataWithUser });
-			} else {
-				setTodos(data);
-				dispatch({ type: "INIT_TODO", payload: data });
+				dispatchTodo({ type: "SET_TODOS", payload: dataWithUser });
 			}
 
+			// Super Admin
+			// else {
+			// 	const data = await getAll(`/todos`);
+			// 	setTodos(data);
+			// 	dispatchTodo({ type: "SET_TODOS", payload: data });
+			// }
+
 		})();
 
-		console.log('TodoTable state: ', state);
+		console.log('todos todoState', todoState);
+
+
 	}, []);
 
 
-	useEffect(() => {
-		(async () => {
-			const data = await getAll(`/todos?userId=${userIdLogin}`);
-			console.log('data ?userId: ', data);
-		})();
-	}, []);
+	// useEffect(() => {
+	// 	(async () => {
+	// 		const data = await getAll(`/todos?userId=3`);
+	// 		console.log('data ?userId: ', data);
+	// 	})();
+	// }, []);
 
 
 	const handleRemoveProduct = async id => {
@@ -44,7 +55,7 @@ const TodoTable = () => {
 			if (res.status === 200) {
 				const newToDos = todos.filter(item => item.id !== id);
 				setTodos(newToDos);
-				dispatch({ type: "INIT_TODO", payload: newToDos });
+				dispatch({ type: "SET_TODOS", payload: newToDos });
 			} else {
 				console.log('Error!');
 			}

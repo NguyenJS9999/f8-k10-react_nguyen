@@ -18,11 +18,9 @@
 	justify-content: space-between;
 }
 
-#root > div:nth-child(2) {
-	margin-top: 1rem;
+.app-component {
 	flex: 1;
 	border: 1px solid gray;}
-
 * {
 	box-sizing: border-box;
 }
