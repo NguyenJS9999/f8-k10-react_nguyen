@@ -1,0 +1,16 @@
+.atom-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: transparent;
+    color: var(--black);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    &:hover {
+        opacity: 0.6;
+    }
+    &:active {
+        opacity: a;
+    }
+}

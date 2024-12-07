@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schemaProduct } from "../../schemas/productSchemas";
-import { createNew, getById, updateById } from "../../services/crudServices";
+import { createNew, getById, updateById } from "../../../services/crudServices";
+import { schemaTodo } from "../../../schemas/todoSchemas";
 
-const ProductForm = () => {
+
+const TodoForm = () => {
 	const { id } = useParams();
 	const {
 		register,
@@ -14,7 +15,7 @@ const ProductForm = () => {
 		handleSubmit,
 		reset,
 	} = useForm({
-		resolver: zodResolver(schemaProduct),
+		resolver: zodResolver(schemaTodo),
 	});
 
 	// useEffect(async () => {
@@ -26,21 +27,21 @@ const ProductForm = () => {
 	useEffect(() => {
 		id &&
 			(async () => {
-				const data = await getById("/products", id);
+				const data = await getById("/todos", id);
 				reset(data);
 			})();
 	}, [id]);
 
-	const handleAddProduct = async (product) => {
-		console.log(product);
-		// request add product
+	const handleAddTodo = async (todo) => {
+		console.log(todo);
+		// request add todo
 		if (id) {
 			// logic edit
-			const data = await updateById("/products", id, product);
+			const data = await updateById("/todos", id, todo);
 			console.log(data);
 		} else {
 			// logic add
-			const data = await createNew("/products", product);
+			const data = await createNew("/todos", product);
 			console.log(data);
 		}
 		reset();
@@ -51,7 +52,7 @@ const ProductForm = () => {
 	return (
 		<div>
 			<h1>{id ? "Cập nhật" : "Thêm mới"} sản phẩm</h1>
-			<form onSubmit={handleSubmit(handleAddProduct)}>
+			<form onSubmit={handleSubmit(handleAddTodo)}>
 				<div className="form-group">
 					<label htmlFor="title" className="form-label">
 						Title
@@ -108,4 +109,4 @@ const ProductForm = () => {
 	);
 };
 
-export default ProductForm;
+export default TodoForm;

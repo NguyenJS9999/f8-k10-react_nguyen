@@ -1,10 +1,11 @@
-// import from 'react';
+import './OrganismHeader.scss';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import { NavLink,  } from 'react-router-dom';
 
-const Header = () => {
+const OrganismHeader = () => {
 	return (
-		<>
+		<div className="header-component w-100">
 			<div className="header-top">
 				<div className="header-top-inner"></div>
 			</div>
@@ -12,14 +13,14 @@ const Header = () => {
 				<div className="container">
 					<div className="header-main-inner">
 						<div className="header-logo">
-							<a href="./index.html">Massage</a>
+							<a href="./index.html">Todo</a>
 						</div>
 						<div className="header-search-desktop">
 							<div className="form-search-control">
 								<div className="form-search">
-									<span className="header-search-back d-lg-none d-xl-none">
+									{/* <span className="header-search-back d-lg-none d-xl-none">
 										<i className="fa-light fa-xmark" />
-									</span>
+									</span> */}
 									{/* <span class="header-search-icon"></span> */}
 									<input
 										autoComplete="off"
@@ -41,7 +42,7 @@ const Header = () => {
 						</div>
 						{/* https://toshiko.vn/gio-hang */}
 						<div className="header-right-item" id="cart-item">
-							<a href="./src/pages/cart/cart.html">
+							<Link to="./cart">
 								<span className="hri-icon">
 									<i className="fa-solid fa-cart-arrow-down" />
 									<span className="cart-qty">1</span>
@@ -49,15 +50,15 @@ const Header = () => {
 								<div className="hri-content">
 									{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
 								</div>
-							</a>
+							</Link>
 						</div>
 						<div className="header-right-item" id="auth-item">
-							<a>
+							<Link to="./login">
 								<div className="hri-content">
 									<i className="fa-regular fa-user" />
 									{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
 								</div>
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -67,50 +68,21 @@ const Header = () => {
 					<div className="header-nav">
 						<ul className="megamenu">
 							{/* megamenu-active */}
-							<li
-								className="item-category"
-								data-category="smartphones"
-							>
-								{/* <a href=" "><img src="" alt=""><span>Ghế massage</span></a> */}
-								{/* <a href="./category.html?category=smartphones">Smart Phones</a> */}
-								Smart Phones
+							<li className="item-category">
+								<NavLink to="/">home</NavLink>
 							</li>
-							<li
-								className="item-category"
-								data-category="laptops"
-							>
-								{/* <a href=" "><img src="" alt=""><span>Máy chạy bộ</span></a> */}
-								{/* <a href="./category.html?category=laptops">Laptops</a> */}
-								Laptops
+							<li className="item-category">
+								<NavLink to="/categories">categories</NavLink>
 							</li>
-							<li
-								className="item-category"
-								data-category="furniture"
-							>
-								{/* <a href=" "><img src="" alt=""><span>Xe đạp tập</span></a> */}
-								{/* <a href="./category.html?category=furniture">Furniture</a> */}
-								Furniture
+							<li className="item-category">
+								<NavLink to="/services">services</NavLink>
 							</li>
-							<li
-								className="item-category"
-								data-category="groceries"
-							>
-								{/* <a href=" "><img src="" alt=""><span>Thiết bị thể thao</span></a> */}
-								{/* <a href="./category.html?category=groceries">Groceries</a> */}
-								Groceries
-							</li>
-							{/* <li class="">
-							<a href=" "><img src="" alt=""><span>Hệ thống Showroom</span></a>
-						</li> */}
-							{/* <li class="">
-							<a href=" "><img src="" alt=""><span>Liên hệ</span></a>
-						</li> */}
 						</ul>
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
-export default Header;
+export default OrganismHeader;
