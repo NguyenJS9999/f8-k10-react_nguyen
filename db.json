@@ -1499,19 +1499,38 @@
   "todos": [
     {
       "id": 1,
-      "title": "Title 1",
+      "title": "Todo 1",
       "description": "Description 1",
       "status": true,
       "priority": "high",
       "userId": 3
     },
     {
-      "id": 2,
-      "title": "Title 2",
-      "description": "Description 2",
+      "id": 3,
+      "title": "Todo 3",
+      "description": "Description 3",
       "status": true,
       "priority": "high",
-      "userId": 2
+      "userId": 3
+    },
+    {
+      "id": 5,
+      "title": "Todo 5",
+      "description": "Description 5",
+      "status": true,
+      "priority": "mid",
+      "userId": 3
+    },
+    {
+      "title": "Title2",
+      "id": 6
+    },
+    {
+      "title": "Title1",
+      "description": "Description1",
+      "priority": "low",
+      "status": false,
+      "id": 7
     }
   ],
   "users": [
@@ -1526,15 +1545,6 @@
       "role": "admin"
     },
     {
-      "id": 2,
-      "name": "User 2",
-      "old": 20,
-      "address": "Trần Duy Hưng",
-      "email": "hoang@gmail.com",
-      "password": "$2a$10$Yb2iWO0y9aqw3CrwhWIuUehLJl5ItIDlOt3CTi5/4qi6KsXOYZRwe",
-      "confirmPassword": "111111"
-    },
-    {
       "id": 3,
       "name": "User 3",
       "old": 33,
@@ -1543,6 +1553,12 @@
       "password": "$2a$10$/bQ/cnL.AhWqMpo3CcHuH.rS32zwnpMcjlMAdIsVa0U5J6wRb3orC",
       "confirmPassword": "111111",
       "role": "superAdmin"
+    },
+    {
+      "email": "nguyentrungnguyenth14@gmail.com",
+      "password": "$2a$10$/NL9oQchGO6odXTXcneKy.QkFtbDr7zeYE8yh/UC3tUgxCCONGF5O",
+      "confirmPassword": "111111",
+      "id": 4
     }
   ]
 }

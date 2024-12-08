@@ -10,18 +10,23 @@ const TodoTable = () => {
 	const { userState } = useContext(UserContext);
 	const [ todos, setTodos] = useState([]);
 
+	const dataUserLocal = JSON.parse(localStorage.getItem('user'));
 
+	console.log('TodoTable dataUserLocal', dataUserLocal);
 
 
 	useEffect(() => {
-		console.log('todos userState', userState);
 
 		(async () => {
 			// Có id user thì mới lọc ra show tạm...
-			const userIdLogin = 3;
+			const userIdLogin = String(dataUserLocal.id);
+			console.log('TodoTable userIdLogin', userIdLogin);
+
 			if (userIdLogin) {
 				const dataWithUser = await getAll(`/todos?userId=${userIdLogin}`);
 				// const dataWithUser = data.filter( item => item.userId == userIdLogin )
+				console.log('TodoTable dataWithUser', dataWithUser);
+
 				setTodos(dataWithUser);
 				dispatchTodo({ type: "SET_TODOS", payload: dataWithUser });
 			}
@@ -51,7 +56,7 @@ const TodoTable = () => {
 
 	const handleRemoveProduct = async id => {
 		if (confirm('Are you sure?')) {
-			const res = await removeById('/data2', id);
+			const res = await removeById('/users', id);
 			if (res.status === 200) {
 				const newToDos = todos.filter(item => item.id !== id);
 				setTodos(newToDos);
@@ -65,7 +70,7 @@ const TodoTable = () => {
 	return (
 		<div>
 			<div>
-				<h1>Quản lý công việc</h1>
+				<h1>Quản lý công việc của {dataUserLocal&&dataUserLocal?.name}</h1>
 				<div className="w-100 d-flex">
 					<Link to={`/admin/todos/add`} className="btn btn-primary mt-2">
 						Add todo
@@ -86,7 +91,7 @@ const TodoTable = () => {
 						{todos && todos.map((item, index) => (
 							<tr key={item.id ?? index}>
 								<td>{item.id}</td>
-								<td>{item.title}-userId: {item.userId}</td>
+								<td>{item.title}</td>
 								<td>{item.description}</td>
 								<td>{item.status ? 'Done' : 'Doing'}</td>
 								<td>{item.priority}</td>

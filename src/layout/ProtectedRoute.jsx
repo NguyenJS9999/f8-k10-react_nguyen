@@ -14,7 +14,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = ({ role, children }) => {
 	const localRole = localStorage.getItem("role") || "client";
-	console.log(localRole);
+	console.log('Syper admin ProtectedRoute', localRole);
 	return (
 		<div>
 			<p>Tuyến đường được bảo vệ</p>

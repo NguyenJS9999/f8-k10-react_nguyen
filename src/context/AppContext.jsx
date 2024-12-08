@@ -4,10 +4,10 @@ import { appReducer, initialState } from "../reducers/appReducer";
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [ appState , dispatch] = useReducer(appReducer, initialState);
+  const [ appState , dispatchApp ] = useReducer(appReducer, initialState);
 
   return (
-    <AppContext.Provider value={{ appState, dispatch }}>
+    <AppContext.Provider value={{ appState, dispatchApp }}>
       {children}
     </AppContext.Provider>
   );

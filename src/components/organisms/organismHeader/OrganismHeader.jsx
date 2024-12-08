@@ -1,13 +1,17 @@
 import './OrganismHeader.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, data, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { removeFromLocalStorage } from '../../../util/localStorage';
+import { AppContext } from '../../../context/AppContext';
 
 const OrganismHeader = () => {
 	const nav = useNavigate();
 
+	const { appState , dispatchApp } = useContext(AppContext);
+
 	const [userInforState, setUserInforState] = useState(null);
+
 
 	const accessTokenLocal = localStorage.getItem(`accessToken`);
 	const dataUserLocal = JSON.parse(localStorage.getItem('user'));
@@ -16,7 +20,8 @@ const OrganismHeader = () => {
 
 	useEffect(() => {
 		checkLogin();
-	}, []);
+		console.log('useNavigate appState: ', appState);
+	}, [appState]);
 
 	useEffect(() => {
 		console.log("userInforState: ", userInforState, typeof userInforState);
@@ -52,7 +57,9 @@ const OrganismHeader = () => {
 	function handleLogout() {
 		removeFromLocalStorage("accessToken");
 		removeFromLocalStorage("user");
+		removeFromLocalStorage("role");
 		checkLogin();
+		dispatchApp({ type: "LOAD_HEADR", payload: 1 })
 	}
 
 	return (
@@ -72,7 +79,7 @@ const OrganismHeader = () => {
 									<span className="header-search-back d-lg-none d-xl-none">
 										<i className="fa-light fa-xmark" />
 									</span>
-									{/* <span class="header-search-icon"></span> */}
+									{/* <span className="header-search-icon"></span> */}
 									<input
 										autoComplete="off"
 										type="text"
@@ -99,19 +106,20 @@ const OrganismHeader = () => {
 									<span className="cart-qty">1</span>
 								</span>
 								<div className="hri-content">
-									{/* <span class="label"><span class="cart-qty">1</span> sản phẩm</span> */}
+									{/* <span className="label"><span className="cart-qty">1</span> sản phẩm</span> */}
 								</div>
 							</a>
 						</div>
 
 						{ userInforState ?
-							<div className="">
-								<div className=" " id="auth-infor">
+							<div className="" id="auth-infor">
+								<div className=" ">
 									{ userInforState?.name ?? 'Name'}
 								</div>
-								<button className='btn btn-secondary' onClick={handleLogout}>
-									Logout
+								<button className='btn' onClick={handleLogout}>
+									<i className="fa-solid fa-arrow-right-from-bracket"></i>
 								</button>
+
 							</div>
 						:
 						<div

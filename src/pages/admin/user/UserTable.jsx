@@ -8,14 +8,17 @@ const UserTable = () => {
 	const { userState, dispatchUser } = useContext(UserContext);
 	const [ todos, setTodos] = useState([]);
 
+	const accessTokenLocal = localStorage.getItem(`accessToken`);
+	const dataUserLocal = JSON.parse(localStorage.getItem('user'));
+	const roleLocal = localStorage.getItem('role');
+
+
 	useEffect(() => {
 		(async () => {
 			const data = await getAll('/users');
-			console.log('UserTable data', data);
+			// console.log('UserTable data', data);
 			setTodos(data);
 			dispatchUser({ type: "SET_USER", payload: data });
-
-
 		})();
 
 		// console.log('UserTable appState: ', appState);
@@ -46,7 +49,7 @@ const UserTable = () => {
 	return (
 		<div>
 			<div>
-				<h1>Quản lý người dùng</h1>
+				<h1>Quản lý người dùng { dataUserLocal && dataUserLocal?.name}</h1>
 				<Link to={`/admin/todos/add`} className="btn btn-primary">
 					Add user
 				</Link>
