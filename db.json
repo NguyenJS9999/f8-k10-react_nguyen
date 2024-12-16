@@ -1,0 +1,83 @@
+{
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$da/5T0bwrJYU1ihJJVjrt.pMZIZC.idOss7UJOURq/azC5.0glOZq",
+      "confirmPassword": "111111",
+      "id": 1,
+      "role": "admin"
+    },
+    {
+      "email": "hoang@gmail.com",
+      "password": "$2a$10$Yb2iWO0y9aqw3CrwhWIuUehLJl5ItIDlOt3CTi5/4qi6KsXOYZRwe",
+      "confirmPassword": "111111",
+      "id": 2
+    },
+    {
+      "email": "superadmin@gmail.com",
+      "password": "$2a$10$/bQ/cnL.AhWqMpo3CcHuH.rS32zwnpMcjlMAdIsVa0U5J6wRb3orC",
+      "confirmPassword": "111111",
+      "id": 3,
+      "role": "superAdmin"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "task A",
+      "description": "detail A",
+      "status": "doing",
+      "priority": "high",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "task B",
+      "description": "detail B",
+      "status": "doing",
+      "priority": "high",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "title": "task C",
+      "description": "detail C",
+      "status": "doing",
+      "priority": "high",
+      "userId": 2
+    },
+    {
+      "title": "task ABC",
+      "description": "detail viec nao do",
+      "status": "doing",
+      "priority": "high",
+      "userId": 3,
+      "id": 5
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "title": "san pham 1 update",
+      "price": 200,
+      "description": ""
+    },
+    {
+      "id": 3,
+      "title": "san pham 3",
+      "price": 400
+    },
+    {
+      "title": "them san pham",
+      "price": 200,
+      "description": "mo ta",
+      "id": 4
+    },
+    {
+      "title": "them san pham moi lan 2",
+      "price": 200,
+      "description": "mo ta",
+      "id": 5
+    }
+  ]
+}
