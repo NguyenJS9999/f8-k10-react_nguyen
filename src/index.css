@@ -54,7 +54,24 @@ li {
 } */
 
 .app-component {
-	min-height: 100vh;
-	border: 1px solid gray;
+	min-height: 101vh;
+	/* border: 1px solid gray; */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
 
+.pages-elements {
+	width: 100%;
+	/* border: 1px solid red; */
+	padding: 1rem 0;
+	background-color: var(--background-homepage);
+	flex: 1;
+	display: flex;
+}
+.pages-elements-inner {
+	border: 1px solid var(--border-color);
+	border-radius: 0.25rem;
+	width: 100%;
+	flex: 1;
 }

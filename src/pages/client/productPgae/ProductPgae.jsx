@@ -1,26 +1,31 @@
-import "./ProductTable.scss"
+import "./ProductPage.scss"
 import React, { useEffect } from 'react';
-import { getAll } from '../../services/crudServices';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProducts } from '../../actions/productActions';
+import { Link, useNavigate } from "react-router-dom";
 
-const ProductTable = () => {
-	const { products } = useSelector(state => state.products);
+function ProductPage() {
+	const navigate = useNavigate();
+	// const {products} = useSelector(state => state.products);
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		(async () => {
-			const data = await getAll('/products');
-			// console.log('ProductPage getAll', data);
-			dispatch(setProducts(data));
-		})();
-	}, []);
+	// useEffect(() => {
+	// 	(async () => {
+	// 		const data = await getAll('/products');
+	// 		// console.log('ProductPage getAll', data);
+	// 		dispatch(setProducts(data));
+	// 	})();
+	// }, []);
+
+
 
 	return (
 		<div className="product-Page">
+
 			<div className="product-Page-action w-100	">
-				<button className="btn btn-primary">Add Product</button>
+				<Link to={`/admin/products/add`} className="btn btn-primary">
+					Add new product
+				</Link>
 			</div>
 
 			<table className="table table-striped table-bordered">
@@ -39,11 +44,7 @@ const ProductTable = () => {
 							<tr key={item?.id ?? index}>
 								<th scope="row">{item?.id}</th>
 								<td>{item?.title}</td>
-								<td>
-									{item?.description !== ''
-										? item?.description
-										: '--'}
-								</td>
+								<td>{item?.description !== '' ? item?.description : '--'}</td>
 								<td>{item?.price}</td>
 								<td>
 									<div>
@@ -60,10 +61,11 @@ const ProductTable = () => {
 					) : (
 						<div>Không có sản phẩm nào.</div>
 					)}
+
 				</tbody>
 			</table>
 		</div>
 	);
-};
+}
 
-export default ProductTable;
+export default ProductPage;

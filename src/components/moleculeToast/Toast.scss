@@ -1,0 +1,30 @@
+.component-toast .toast-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.component-toast .toast {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+.component-toast .toast-success {
+    background-color: green;
+}
+
+.component-toast .toast-error {
+    background-color: red;
+}
+
+.component-toast .toast-info {
+    background-color: blue;
+}
+
+.component-toast .toast-warning {
+    background-color: orange;
+}
