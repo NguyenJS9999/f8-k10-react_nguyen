@@ -3,7 +3,7 @@ import { lazy,Suspense } from "react";
 import RegisterPage from "../pages/admin/RegisterPage";
 import LoginPage from "../pages/admin/LoginPage";
 import useAuth from "../hooks/useAuth";
-import { Navigate,useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import AtomLoading from "../pages/components/atoms/atomLoading/AtomLoading";
 // Lazy load các thành phần
 const ClientLayout = lazy(() => import("../layouts/ClientLayout"));
@@ -16,7 +16,7 @@ const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
 // HOC: Yêu cầu quyền đăng nhập
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
-    const { isAuthenticated } = useAuth();
+    // const { isAuthenticated } = useAuth();
     // console.log('RequireAuth isAuthenticated: ',isAuthenticated);
     return children;
     // return isAuthenticated ? children : <Navigate to="/login" replace />;
@@ -24,7 +24,7 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 
 // HOC: Kiểm tra quyền admin
 const RequireAdmin = ({ children }: { children: JSX.Element }) => {
-    const { user } = useAuth();
+    // const { user } = useAuth();
     // console.log('RequireAdmin user: ',user);
     return children;
     // return user?.role === "admin" ? children : <Navigate to="/" replace />;
