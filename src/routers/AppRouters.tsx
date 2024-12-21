@@ -2,7 +2,7 @@
 import { lazy,Suspense } from "react";
 import RegisterPage from "../pages/admin/RegisterPage";
 import LoginPage from "../pages/admin/LoginPage";
-import useAuth from "../hooks/useAuth";message
+// import useAuth from "../hooks/useAuth";
 import { useRoutes } from "react-router-dom";
 import AtomLoading from "../pages/components/atoms/atomLoading/AtomLoading";
 // Lazy load các thành phần
