@@ -1,11 +1,9 @@
-import { Message } from './../../../node_modules/@bufbuild/protobuf/dist/esm/types.d';
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../services";
 import { IProduct } from "../../interfaces/IProduct";
 
 export const fetchProducts = createAsyncThunk<IProduct[]>("/products/fetchProducts", async () => {
 	const { data } = await instance.get("/products");
-	console.log(data);
 	return data;
 });
 
@@ -17,8 +15,6 @@ export const fetchProductById = createAsyncThunk<IProduct, number | string>( "pr
 
 export const createProduct = createAsyncThunk<IProduct, IProduct>("/products/credaasn vafo 1 magnr bvaf bonjc usse routeeateProduct", async (product) => {
 	const res = await instance.post("/products", product);
-	console.log('createProduct', res);
-
 	const data = res.data;
 	if (res.status) {
 		data.statusText = res.statusText || "Add product successfully";
@@ -29,7 +25,6 @@ export const createProduct = createAsyncThunk<IProduct, IProduct>("/products/cre
 
 
 export const editProduct = createAsyncThunk<IProduct, IProduct>( "/products/editProduct", async ({ id, ...product }) => {
-
 		const res = await instance.patch<IProduct>(`/products/${id}`, product);
 		const data = res.data;
 		if (res.status) {

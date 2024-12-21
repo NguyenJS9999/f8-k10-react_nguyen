@@ -43,7 +43,6 @@ const ProductForm: React.FC = () => {
     useEffect(() => {
         id &&
             (async () => {
-                // console.log('get product by id');
                 const data = await dispatch(fetchProductById(id)).unwrap();
                 reset(data);
             })();
@@ -55,11 +54,10 @@ const ProductForm: React.FC = () => {
                 dispatch(editProduct({ id, ...dataBody }));
                 toast.success(`${message || "Update success!"}`);
                 setTimeout(() => {  nav("/admin/products") }, 2000);
-                // nav("/admin/products");
             } else {
                 dispatch(createProduct(dataBody));
                 toast.success(`${message || "Add success!"}`);
-                // reset();
+                reset();
             }
         } catch (error) {
             console.log('handleProductForm error', error);
