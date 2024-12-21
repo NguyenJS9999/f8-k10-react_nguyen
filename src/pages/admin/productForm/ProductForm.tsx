@@ -46,7 +46,7 @@ const ProductForm: React.FC = () => {
                 const data = await dispatch(fetchProductById(id)).unwrap();
                 reset(data);
             })();
-    },[]);
+    },[dispatch, id, reset]);
 
     function handleProductForm(dataBody: IProduct) {
         try {
@@ -70,7 +70,7 @@ const ProductForm: React.FC = () => {
             toast.error(error);
         } else {
             // Nếu error là đối tượng có thuộc tính message
-            toast.error(error?.message || 'An error occurred');
+            toast.error(error || 'An error occurred');
         }
     }
 
